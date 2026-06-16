@@ -1,0 +1,139 @@
+.shell {
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 12% 50%, color-mix(in srgb, var(--dynamic-accent) 18%, transparent), transparent 22rem),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06), transparent),
+    #080a0e;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 1440px;
+  min-height: 50px;
+  margin: 0 auto;
+  padding: 0.55rem clamp(1rem, 4vw, 2rem);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: max-content;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--dynamic-accent) 55%, transparent);
+  border-radius: 999px;
+  color: var(--dynamic-accent);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: color-mix(in srgb, var(--dynamic-accent) 10%, transparent);
+}
+
+.liveDot {
+  width: 0.48rem;
+  height: 0.48rem;
+  border-radius: 999px;
+  background: var(--dynamic-accent);
+  box-shadow: 0 0 16px var(--dynamic-accent);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.visualizer {
+  display: inline-flex;
+  align-items: end;
+  gap: 0.18rem;
+  height: 1.25rem;
+}
+
+.visualizer span {
+  display: block;
+  width: 0.22rem;
+  height: 40%;
+  border-radius: 999px;
+  background: var(--dynamic-accent);
+  animation: bars 760ms ease-in-out infinite alternate;
+}
+
+.visualizer span:nth-child(2) {
+  animation-delay: 120ms;
+}
+
+.visualizer span:nth-child(3) {
+  animation-delay: 240ms;
+}
+
+.visualizer span:nth-child(4) {
+  animation-delay: 360ms;
+}
+
+.visualizer span:nth-child(5) {
+  animation-delay: 480ms;
+}
+
+.copy {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.medium {
+  color: var(--dynamic-accent);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.title {
+  min-width: 0;
+  font-family: var(--wn-font-display, Oswald), sans-serif;
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.subtext {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.9rem;
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(1.25);
+    opacity: 0.7;
+  }
+}
+
+@keyframes bars {
+  to {
+    height: 100%;
+  }
+}
+
+@media (max-width: 720px) {
+  .content {
+    align-items: flex-start;
+    gap: 0.7rem;
+  }
+
+  .copy {
+    display: grid;
+    gap: 0.12rem;
+  }
+
+  .visualizer {
+    display: none;
+  }
+
+  .subtext {
+    display: none;
+  }
+}

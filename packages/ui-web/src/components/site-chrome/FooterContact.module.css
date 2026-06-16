@@ -1,0 +1,11 @@
+.contact {
+  display: grid;
+  gap: 0.4rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-style: normal;
+  line-height: 1.6;
+}
+
+.contact a:hover {
+  color: var(--wn-electric-blue, #00b3ff);
+}

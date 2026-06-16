@@ -1,0 +1,37 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@apollo/client": "^4.2.3",
+    "@auth0/nextjs-auth0": "^4.22.0",
+    "@sentry/nextjs": "^10.58.0",
+    "@wavenation/analytics": "workspace:^",
+    "@wavenation/api-client": "workspace:^",
+    "@wavenation/auth": "workspace:^",
+    "@wavenation/config": "workspace:^",
+    "@wavenation/feature-flags": "workspace:^",
+    "@wavenation/media-sdk": "workspace:^",
+    "@wavenation/types": "workspace:^",
+    "@wavenation/ui-web": "workspace:^",
+    "@wavenation/utils": "workspace:^",
+    "graphql": "^17.0.0",
+    "next": "16.2.9",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.9",
+    "typescript": "^5"
+  }
+}

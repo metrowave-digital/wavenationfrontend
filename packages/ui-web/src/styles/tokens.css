@@ -1,0 +1,558 @@
+/* ==========================================================================
+   WaveNation Tokenized Design System
+   File: packages/ui-web/src/styles/tokens.css
+
+   Covers:
+   - Color tokens
+   - Typography tokens
+   - Spacing tokens
+   - Breakpoint tokens
+   - Radius tokens
+   - Motion tokens
+   - Elevation / shadow tokens
+   - TV-safe / 10-foot UI tokens
+   ========================================================================== */
+
+:root {
+  /* ==========================================================================
+     1. Raw Brand Color Tokens
+     ========================================================================== */
+
+  --wn-black: #0b0d0f;
+  --wn-white: #ffffff;
+
+  --wn-electric-blue: #00b3ff;
+  --wn-neon-green: #39ff14;
+  --wn-magenta-pulse: #e92c63;
+  --wn-signal-teal: #00f3c9;
+
+  --wn-charcoal: #1f1f21;
+  --wn-slate: #3a3d42;
+  --wn-deep-indigo: #161a2d;
+  --wn-soft-blue-gray: #a2b3c7;
+
+  --wn-red-alert: #ff0048;
+  --wn-gold: #ffd166;
+  --wn-orange: #ff8a00;
+
+  /* RGB channels for alpha-safe usage */
+  --wn-black-rgb: 11 13 15;
+  --wn-white-rgb: 255 255 255;
+  --wn-electric-blue-rgb: 0 179 255;
+  --wn-neon-green-rgb: 57 255 20;
+  --wn-magenta-pulse-rgb: 233 44 99;
+  --wn-signal-teal-rgb: 0 243 201;
+  --wn-red-alert-rgb: 255 0 72;
+
+  /* ==========================================================================
+     2. Semantic Color Tokens
+     ========================================================================== */
+
+  --wn-bg: var(--wn-black);
+  --wn-bg-elevated: #101317;
+  --wn-bg-soft: #121722;
+  --wn-bg-inverse: var(--wn-white);
+
+  --wn-surface: var(--wn-charcoal);
+  --wn-surface-2: #17191d;
+  --wn-surface-3: #20242b;
+  --wn-surface-glass: rgb(var(--wn-white-rgb) / 0.06);
+  --wn-surface-strong: #262a31;
+
+  --wn-panel: rgb(var(--wn-white-rgb) / 0.07);
+  --wn-panel-strong: rgb(var(--wn-white-rgb) / 0.11);
+  --wn-panel-muted: rgb(var(--wn-white-rgb) / 0.045);
+
+  --wn-overlay: rgb(var(--wn-black-rgb) / 0.72);
+  --wn-overlay-strong: rgb(var(--wn-black-rgb) / 0.88);
+  --wn-overlay-soft: rgb(var(--wn-black-rgb) / 0.48);
+
+  --wn-text: var(--wn-white);
+  --wn-text-primary: var(--wn-white);
+  --wn-text-secondary: #d7dce3;
+  --wn-text-muted: var(--wn-soft-blue-gray);
+  --wn-text-subtle: #7f8a9a;
+  --wn-text-disabled: rgb(var(--wn-white-rgb) / 0.42);
+  --wn-text-inverse: var(--wn-black);
+
+  --wn-border: rgb(var(--wn-white-rgb) / 0.12);
+  --wn-border-strong: rgb(var(--wn-white-rgb) / 0.22);
+  --wn-border-soft: rgb(var(--wn-white-rgb) / 0.075);
+
+  --wn-focus: var(--wn-electric-blue);
+  --wn-focus-ring: 0 0 0 3px rgb(var(--wn-electric-blue-rgb) / 0.34);
+
+  --wn-success: var(--wn-neon-green);
+  --wn-warning: var(--wn-gold);
+  --wn-danger: var(--wn-red-alert);
+  --wn-info: var(--wn-electric-blue);
+
+  /* ==========================================================================
+     3. Sub-Brand Color Tokens
+     ========================================================================== */
+
+  --wn-fm-accent: var(--wn-electric-blue);
+  --wn-one-accent: var(--wn-magenta-pulse);
+  --wn-plus-accent: var(--wn-neon-green);
+  --wn-news-accent: var(--wn-white);
+  --wn-creator-accent: var(--wn-signal-teal);
+
+  --wn-accent-primary: var(--wn-electric-blue);
+  --wn-accent-secondary: var(--wn-magenta-pulse);
+  --wn-accent-premium: var(--wn-neon-green);
+  --wn-accent-teal: var(--wn-signal-teal);
+
+  /* ==========================================================================
+     4. Gradient Tokens
+     ========================================================================== */
+
+  --wn-gradient-electric-surge: linear-gradient(
+    135deg,
+    var(--wn-electric-blue),
+    var(--wn-neon-green)
+  );
+
+  --wn-gradient-pulse-wave: linear-gradient(
+    135deg,
+    var(--wn-magenta-pulse),
+    var(--wn-electric-blue)
+  );
+
+  --wn-gradient-night-drive: linear-gradient(
+    135deg,
+    var(--wn-black),
+    var(--wn-deep-indigo),
+    var(--wn-electric-blue)
+  );
+
+  --wn-gradient-southern-heat: linear-gradient(
+    135deg,
+    var(--wn-magenta-pulse),
+    var(--wn-red-alert),
+    var(--wn-electric-blue)
+  );
+
+  --wn-gradient-tech-glow: linear-gradient(
+    135deg,
+    var(--wn-black),
+    var(--wn-signal-teal)
+  );
+
+  --wn-gradient-blue-fade: linear-gradient(
+    90deg,
+    rgb(var(--wn-electric-blue-rgb) / 0.72),
+    rgb(var(--wn-electric-blue-rgb) / 0)
+  );
+
+  --wn-gradient-surface: linear-gradient(
+    180deg,
+    rgb(var(--wn-white-rgb) / 0.09),
+    rgb(var(--wn-white-rgb) / 0.035)
+  );
+
+  --wn-gradient-hero-radial:
+    radial-gradient(circle at top left, rgb(var(--wn-electric-blue-rgb) / 0.24), transparent 34rem),
+    radial-gradient(circle at bottom right, rgb(var(--wn-magenta-pulse-rgb) / 0.22), transparent 32rem),
+    var(--wn-bg);
+
+  /* ==========================================================================
+     5. Typography Tokens
+     ========================================================================== */
+
+  --wn-font-body: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --wn-font-display: Oswald, Impact, "Arial Narrow", sans-serif;
+  --wn-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+  --wn-weight-light: 300;
+  --wn-weight-regular: 400;
+  --wn-weight-medium: 500;
+  --wn-weight-semibold: 600;
+  --wn-weight-bold: 700;
+  --wn-weight-extrabold: 800;
+
+  --wn-leading-none: 1;
+  --wn-leading-tight: 1.08;
+  --wn-leading-snug: 1.18;
+  --wn-leading-normal: 1.45;
+  --wn-leading-relaxed: 1.65;
+  --wn-leading-loose: 1.8;
+
+  --wn-tracking-tight: -0.04em;
+  --wn-tracking-display: -0.025em;
+  --wn-tracking-normal: 0;
+  --wn-tracking-wide: 0.06em;
+  --wn-tracking-wider: 0.12em;
+  --wn-tracking-broadcast: 0.18em;
+
+  /* Base fluid scale */
+  --wn-text-2xs: 0.6875rem; /* 11px */
+  --wn-text-xs: 0.75rem;    /* 12px */
+  --wn-text-sm: 0.875rem;   /* 14px */
+  --wn-text-md: 1rem;       /* 16px */
+  --wn-text-lg: 1.125rem;   /* 18px */
+  --wn-text-xl: 1.25rem;    /* 20px */
+  --wn-text-2xl: 1.5rem;    /* 24px */
+  --wn-text-3xl: 1.75rem;   /* 28px */
+  --wn-text-4xl: 2.25rem;   /* 36px */
+  --wn-text-5xl: 3rem;      /* 48px */
+  --wn-text-6xl: 4rem;      /* 64px */
+  --wn-text-7xl: 4.5rem;    /* 72px */
+  --wn-text-8xl: 5.5rem;    /* 88px */
+  --wn-text-9xl: 6.875rem;  /* 110px */
+
+  /* Web role tokens */
+  --wn-type-display: clamp(4rem, 8vw, 7.25rem);
+  --wn-type-h1: clamp(3rem, 6vw, 4.5rem);
+  --wn-type-h2: clamp(2.25rem, 4vw, 3rem);
+  --wn-type-h3: clamp(1.75rem, 3vw, 2.25rem);
+  --wn-type-body-lg: clamp(1.125rem, 1.6vw, 1.25rem);
+  --wn-type-body: 1.125rem;
+  --wn-type-caption: 0.875rem;
+  --wn-type-micro: 0.75rem;
+
+  /* Mobile role tokens */
+  --wn-mobile-display: clamp(2.625rem, 10vw, 4rem);
+  --wn-mobile-header: clamp(2rem, 7vw, 2.5rem);
+  --wn-mobile-subhead: 1.5rem;
+  --wn-mobile-body: 1rem;
+  --wn-mobile-caption: 0.875rem;
+  --wn-mobile-micro: 0.75rem;
+
+  /* 10-foot / TV role tokens */
+  --wn-tv-display-xxl: clamp(5rem, 7vw, 6.875rem);
+  --wn-tv-display-xl: 4rem;
+  --wn-tv-title: 3rem;
+  --wn-tv-subhead: 2rem;
+  --wn-tv-metadata: 1.5rem;
+  --wn-tv-caption: 1.625rem;
+
+  /* ==========================================================================
+     6. Spacing Tokens
+     ========================================================================== */
+
+  --wn-space-0: 0;
+  --wn-space-px: 1px;
+  --wn-space-0-5: 0.125rem;
+  --wn-space-1: 0.25rem;
+  --wn-space-1-5: 0.375rem;
+  --wn-space-2: 0.5rem;
+  --wn-space-2-5: 0.625rem;
+  --wn-space-3: 0.75rem;
+  --wn-space-4: 1rem;
+  --wn-space-5: 1.25rem;
+  --wn-space-6: 1.5rem;
+  --wn-space-7: 1.75rem;
+  --wn-space-8: 2rem;
+  --wn-space-10: 2.5rem;
+  --wn-space-12: 3rem;
+  --wn-space-14: 3.5rem;
+  --wn-space-16: 4rem;
+  --wn-space-20: 5rem;
+  --wn-space-24: 6rem;
+  --wn-space-28: 7rem;
+  --wn-space-32: 8rem;
+
+  --wn-gutter: clamp(1rem, 4vw, 2rem);
+  --wn-page-gutter: clamp(1rem, 5vw, 4rem);
+
+  --wn-section-sm: clamp(2rem, 5vw, 3.5rem);
+  --wn-section-md: clamp(3rem, 7vw, 5rem);
+  --wn-section-lg: clamp(4rem, 9vw, 7rem);
+  --wn-section-xl: clamp(5rem, 12vw, 10rem);
+
+  --wn-stack-xs: var(--wn-space-2);
+  --wn-stack-sm: var(--wn-space-4);
+  --wn-stack-md: var(--wn-space-6);
+  --wn-stack-lg: var(--wn-space-8);
+  --wn-stack-xl: var(--wn-space-12);
+
+  --wn-grid-gap-sm: var(--wn-space-4);
+  --wn-grid-gap-md: var(--wn-space-6);
+  --wn-grid-gap-lg: var(--wn-space-8);
+
+  /* ==========================================================================
+     7. Container Width Tokens
+     ========================================================================== */
+
+  --wn-container-xs: 40rem;    /* 640px */
+  --wn-container-sm: 47.5rem;  /* 760px */
+  --wn-container-md: 61.25rem; /* 980px */
+  --wn-container-lg: 70rem;    /* 1120px */
+  --wn-container-xl: 80rem;    /* 1280px */
+  --wn-container-wide: 90rem;  /* 1440px */
+  --wn-container-tv: 100rem;   /* 1600px */
+
+  /* ==========================================================================
+     8. Breakpoint Tokens
+     Note: CSS custom properties cannot be used directly inside native media
+     queries. These are reference tokens for JS/TS, docs, and design consistency.
+     ========================================================================== */
+
+  --wn-bp-xs: 360px;
+  --wn-bp-sm: 480px;
+  --wn-bp-md: 768px;
+  --wn-bp-lg: 980px;
+  --wn-bp-xl: 1200px;
+  --wn-bp-2xl: 1440px;
+  --wn-bp-tv: 1920px;
+  --wn-bp-tv-4k: 3840px;
+
+  /* Recommended media query values:
+     mobile:  max-width: 767px
+     tablet:  768px - 979px
+     desktop: min-width: 980px
+     wide:    min-width: 1200px
+     tv:      min-width: 1920px
+  */
+
+  /* ==========================================================================
+     9. Radius Tokens
+     ========================================================================== */
+
+  --wn-radius-none: 0;
+  --wn-radius-xs: 0.25rem;
+  --wn-radius-sm: 0.5rem;
+  --wn-radius-md: 0.875rem;
+  --wn-radius-lg: 1.25rem;
+  --wn-radius-xl: 1.75rem;
+  --wn-radius-2xl: 2.25rem;
+  --wn-radius-3xl: 3rem;
+  --wn-radius-pill: 999rem;
+  --wn-radius-circle: 50%;
+
+  /* ==========================================================================
+     10. Elevation / Shadow Tokens
+     ========================================================================== */
+
+  --wn-shadow-xs: 0 1px 2px rgb(var(--wn-black-rgb) / 0.24);
+  --wn-shadow-sm: 0 8px 18px rgb(var(--wn-black-rgb) / 0.28);
+  --wn-shadow-md: 0 16px 36px rgb(var(--wn-black-rgb) / 0.34);
+  --wn-shadow-lg: 0 24px 60px rgb(var(--wn-black-rgb) / 0.42);
+  --wn-shadow-xl: 0 36px 90px rgb(var(--wn-black-rgb) / 0.54);
+
+  --wn-shadow-card:
+    0 18px 45px rgb(var(--wn-black-rgb) / 0.36),
+    inset 0 1px 0 rgb(var(--wn-white-rgb) / 0.08);
+
+  --wn-shadow-panel:
+    0 24px 80px rgb(var(--wn-black-rgb) / 0.5),
+    inset 0 1px 0 rgb(var(--wn-white-rgb) / 0.09);
+
+  --wn-shadow-modal:
+    0 40px 120px rgb(var(--wn-black-rgb) / 0.72),
+    0 0 0 1px rgb(var(--wn-white-rgb) / 0.12);
+
+  --wn-shadow-glow-blue: 0 0 28px rgb(var(--wn-electric-blue-rgb) / 0.34);
+  --wn-shadow-glow-blue-strong: 0 0 48px rgb(var(--wn-electric-blue-rgb) / 0.52);
+
+  --wn-shadow-glow-magenta: 0 0 28px rgb(var(--wn-magenta-pulse-rgb) / 0.3);
+  --wn-shadow-glow-magenta-strong: 0 0 48px rgb(var(--wn-magenta-pulse-rgb) / 0.48);
+
+  --wn-shadow-glow-green: 0 0 28px rgb(var(--wn-neon-green-rgb) / 0.28);
+  --wn-shadow-glow-green-strong: 0 0 48px rgb(var(--wn-neon-green-rgb) / 0.42);
+
+  --wn-shadow-glow-teal: 0 0 28px rgb(var(--wn-signal-teal-rgb) / 0.3);
+
+  /* ==========================================================================
+     11. Motion Tokens
+     ========================================================================== */
+
+  --wn-duration-instant: 75ms;
+  --wn-duration-fast: 150ms;
+  --wn-duration-normal: 240ms;
+  --wn-duration-slow: 420ms;
+  --wn-duration-slower: 700ms;
+  --wn-duration-cinematic: 1200ms;
+
+  --wn-ease-linear: linear;
+  --wn-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --wn-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --wn-ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --wn-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --wn-ease-broadcast: cubic-bezier(0.22, 1, 0.36, 1);
+  --wn-ease-pulse: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --wn-transition-fast: var(--wn-duration-fast) var(--wn-ease-standard);
+  --wn-transition-base: var(--wn-duration-normal) var(--wn-ease-standard);
+  --wn-transition-slow: var(--wn-duration-slow) var(--wn-ease-out);
+  --wn-transition-cinematic: var(--wn-duration-cinematic) var(--wn-ease-broadcast);
+
+  --wn-hover-lift: translateY(-2px);
+  --wn-hover-lift-strong: translateY(-6px);
+  --wn-press-scale: scale(0.985);
+  --wn-card-hover-scale: scale(1.015);
+
+  --wn-pulse-speed: 1600ms;
+  --wn-marquee-speed: 28s;
+  --wn-ticker-speed: 38s;
+  --wn-visualizer-speed: 900ms;
+
+  /* ==========================================================================
+     12. Z-Index Tokens
+     ========================================================================== */
+
+  --wn-z-base: 0;
+  --wn-z-raised: 10;
+  --wn-z-sticky: 100;
+  --wn-z-header: 1000;
+  --wn-z-dock: 1100;
+  --wn-z-player: 1200;
+  --wn-z-popover: 1300;
+  --wn-z-overlay: 1400;
+  --wn-z-modal: 1500;
+  --wn-z-toast: 1600;
+  --wn-z-critical: 9999;
+
+  /* ==========================================================================
+     13. Media Player Tokens
+     ========================================================================== */
+
+  --wn-player-height-desktop: 5.5rem;
+  --wn-player-height-mobile: 4.75rem;
+  --wn-mobile-dock-height: 4.5rem;
+  --wn-player-artwork-sm: 3rem;
+  --wn-player-artwork-md: 4rem;
+  --wn-player-artwork-lg: 6rem;
+
+  --wn-progress-height: 0.375rem;
+  --wn-control-size-sm: 2.25rem;
+  --wn-control-size-md: 2.75rem;
+  --wn-control-size-lg: 3.5rem;
+
+  /* ==========================================================================
+     14. TV-Safe / 10-Foot UI Tokens
+     ========================================================================== */
+
+  --wn-tv-safe-x: 5vw;
+  --wn-tv-safe-y: 5vh;
+  --wn-tv-safe-top: var(--wn-tv-safe-y);
+  --wn-tv-safe-right: var(--wn-tv-safe-x);
+  --wn-tv-safe-bottom: var(--wn-tv-safe-y);
+  --wn-tv-safe-left: var(--wn-tv-safe-x);
+
+  --wn-tv-content-max: var(--wn-container-tv);
+  --wn-tv-panel-radius: 2rem;
+  --wn-tv-card-radius: 1.5rem;
+
+  --wn-tv-focus-ring:
+    0 0 0 4px rgb(var(--wn-white-rgb) / 0.92),
+    0 0 0 8px rgb(var(--wn-electric-blue-rgb) / 0.52),
+    0 0 40px rgb(var(--wn-electric-blue-rgb) / 0.5);
+
+  --wn-tv-focus-scale: 1.06;
+  --wn-tv-card-gap: 2rem;
+  --wn-tv-row-gap: 3rem;
+
+  --wn-tv-min-target: 4rem;
+  --wn-tv-control-size: 4.5rem;
+  --wn-tv-control-size-lg: 5.5rem;
+
+  --wn-tv-metadata-opacity: 0.82;
+  --wn-tv-idle-opacity: 0.68;
+
+  --wn-tv-overlay-gradient:
+    linear-gradient(
+      90deg,
+      rgb(var(--wn-black-rgb) / 0.88) 0%,
+      rgb(var(--wn-black-rgb) / 0.62) 42%,
+      rgb(var(--wn-black-rgb) / 0.08) 100%
+    );
+
+  /* ==========================================================================
+     15. Component Alias Tokens
+     ========================================================================== */
+
+  --wn-card-bg: var(--wn-gradient-surface);
+  --wn-card-border: var(--wn-border);
+  --wn-card-radius: var(--wn-radius-xl);
+  --wn-card-shadow: var(--wn-shadow-card);
+
+  --wn-button-radius: var(--wn-radius-pill);
+  --wn-button-height-sm: 2.5rem;
+  --wn-button-height-md: 3rem;
+  --wn-button-height-lg: 3.5rem;
+
+  --wn-input-bg: rgb(var(--wn-white-rgb) / 0.075);
+  --wn-input-border: var(--wn-border);
+  --wn-input-border-focus: var(--wn-electric-blue);
+  --wn-input-radius: var(--wn-radius-md);
+
+  --wn-header-height: 4.75rem;
+  --wn-header-height-compact: 4rem;
+  --wn-header-bg: rgb(var(--wn-black-rgb) / 0.88);
+  --wn-header-border: var(--wn-border);
+
+  --wn-footer-bg: #07090b;
+}
+
+/* ==========================================================================
+   Reduced Motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --wn-duration-instant: 1ms;
+    --wn-duration-fast: 1ms;
+    --wn-duration-normal: 1ms;
+    --wn-duration-slow: 1ms;
+    --wn-duration-slower: 1ms;
+    --wn-duration-cinematic: 1ms;
+
+    --wn-transition-fast: none;
+    --wn-transition-base: none;
+    --wn-transition-slow: none;
+    --wn-transition-cinematic: none;
+
+    --wn-hover-lift: translateY(0);
+    --wn-hover-lift-strong: translateY(0);
+    --wn-card-hover-scale: scale(1);
+    --wn-tv-focus-scale: 1;
+  }
+}
+
+/* ==========================================================================
+   Optional Base Utility Classes
+   Use only if you want quick reusable helpers from the token file.
+   ========================================================================== */
+
+.wn-tv-safe-area {
+  padding:
+    var(--wn-tv-safe-top)
+    var(--wn-tv-safe-right)
+    var(--wn-tv-safe-bottom)
+    var(--wn-tv-safe-left);
+}
+
+.wn-container {
+  width: min(100% - calc(var(--wn-page-gutter) * 2), var(--wn-container-xl));
+  margin-inline: auto;
+}
+
+.wn-container-wide {
+  width: min(100% - calc(var(--wn-page-gutter) * 2), var(--wn-container-wide));
+  margin-inline: auto;
+}
+
+.wn-focusable {
+  outline: none;
+  transition:
+    transform var(--wn-transition-base),
+    box-shadow var(--wn-transition-base),
+    border-color var(--wn-transition-base);
+}
+
+.wn-focusable:focus-visible {
+  box-shadow: var(--wn-focus-ring);
+}
+
+.wn-tv-focusable {
+  outline: none;
+  transition:
+    transform var(--wn-transition-base),
+    box-shadow var(--wn-transition-base);
+}
+
+.wn-tv-focusable:focus-visible {
+  transform: scale(var(--wn-tv-focus-scale));
+  box-shadow: var(--wn-tv-focus-ring);
+}

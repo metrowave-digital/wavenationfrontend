@@ -1,0 +1,19 @@
+.social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.social a {
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.social a:hover {
+  color: #020304;
+  background: var(--wn-electric-blue, #00b3ff);
+}

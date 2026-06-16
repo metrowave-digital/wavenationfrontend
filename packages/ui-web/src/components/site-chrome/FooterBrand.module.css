@@ -1,0 +1,32 @@
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.logo {
+  width: 3.65rem;
+  height: 3.65rem;
+  object-fit: contain;
+}
+
+.brand span {
+  display: grid;
+}
+
+.brand strong {
+  font-family: var(--wn-font-display, Oswald), sans-serif;
+  font-size: 2rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.brand em {
+  margin-top: 0.3rem;
+  color: var(--wn-electric-blue, #00b3ff);
+  font-size: 0.68rem;
+  font-style: normal;
+  font-weight: 950;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}

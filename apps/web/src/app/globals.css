@@ -1,0 +1,31 @@
+@import '@wavenation/ui-web/src/styles/tokens.css';
+
+:root {
+  --wn-font-body: var(--font-inter), Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --wn-font-display: var(--font-oswald), Oswald, Impact, 'Arial Narrow', sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--wn-bg);
+  color: var(--wn-text);
+  font-family: var(--wn-font-body);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}

@@ -1,0 +1,38 @@
+.container {
+  width: min(100%, var(--container-max, 1200px));
+  margin-inline: auto;
+}
+
+.padded {
+  padding-inline: clamp(1rem, 4vw, 2rem);
+}
+
+.sm {
+  --container-max: 760px;
+}
+
+.md {
+  --container-max: 980px;
+}
+
+.lg {
+  --container-max: 1120px;
+}
+
+.xl {
+  --container-max: 1280px;
+}
+
+.wide {
+  --container-max: 1440px;
+}
+
+.full {
+  --container-max: 100%;
+}
+
+@media (max-width: 640px) {
+  .bleedMobile {
+    padding-inline: 0;
+  }
+}

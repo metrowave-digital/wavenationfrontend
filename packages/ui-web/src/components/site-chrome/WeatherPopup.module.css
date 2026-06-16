@@ -1,0 +1,399 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: grid;
+  place-items: start end;
+  min-height: 100dvh;
+  padding: clamp(5rem, 9vh, 6rem) clamp(0.85rem, 4vw, 2rem) 1rem;
+  overflow-y: auto;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(57, 255, 20, 0.1), transparent 28rem),
+    rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(12px);
+  animation: backdropIn 180ms ease-out;
+}
+
+.panel {
+  position: relative;
+  isolation: isolate;
+  width: min(430px, 100%);
+  overflow: hidden;
+  padding: clamp(1.05rem, 3vw, 1.35rem);
+  border: 1px solid rgba(57, 255, 20, 0.22);
+  border-radius: 1.35rem;
+  color: var(--wn-white, #ffffff);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025)),
+    radial-gradient(circle at 100% 0%, rgba(57, 255, 20, 0.2), transparent 17rem),
+    radial-gradient(circle at 0% 15%, rgba(0, 179, 255, 0.14), transparent 16rem),
+    var(--wn-black, #0b0d0f);
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.58),
+    0 0 36px rgba(57, 255, 20, 0.11);
+  animation: panelIn 220ms ease-out;
+}
+
+.panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 30px 30px;
+  mask-image: linear-gradient(to bottom, black, transparent 78%);
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    linear-gradient(90deg, transparent, rgba(57, 255, 20, 0.28), transparent) top left / 100% 1px no-repeat,
+    linear-gradient(180deg, transparent, rgba(0, 179, 255, 0.2), transparent) top right / 1px 100% no-repeat;
+}
+
+.close {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  display: grid;
+  place-items: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.09);
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.close span {
+  display: block;
+  margin-top: -0.12rem;
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.close:hover {
+  transform: rotate(6deg) scale(1.04);
+  border-color: rgba(57, 255, 20, 0.5);
+  background: rgba(57, 255, 20, 0.12);
+  box-shadow: 0 0 24px rgba(57, 255, 20, 0.18);
+}
+
+.close:focus-visible,
+.marketLink:focus-visible {
+  outline: 2px solid var(--wn-neon-green, #39ff14);
+  outline-offset: 3px;
+}
+
+.header {
+  padding-right: 2.8rem;
+}
+
+.moodRow {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.weatherIcon {
+  display: grid;
+  place-items: center;
+  width: 3.15rem;
+  height: 3.15rem;
+  border: 1px solid rgba(57, 255, 20, 0.24);
+  border-radius: 1rem;
+  color: var(--wn-neon-green, #39ff14);
+  background: rgba(57, 255, 20, 0.08);
+  box-shadow: inset 0 0 24px rgba(57, 255, 20, 0.06);
+}
+
+.weatherIcon[data-mood='rain'],
+.weatherIcon[data-mood='storm'] {
+  color: var(--wn-electric-blue, #00b3ff);
+  border-color: rgba(0, 179, 255, 0.28);
+  background: rgba(0, 179, 255, 0.09);
+}
+
+.weatherIcon[data-mood='cloud'],
+.weatherIcon[data-mood='snow'],
+.weatherIcon[data-mood='wind'] {
+  color: rgba(255, 255, 255, 0.86);
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.weatherIcon svg {
+  width: 1.85rem;
+  height: 1.85rem;
+}
+
+.weatherIcon path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--wn-neon-green, #39ff14);
+  font-size: 0.72rem;
+  font-weight: 950;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.provider {
+  margin: 0.24rem 0 0;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.panel h2 {
+  margin: 0.95rem 0 1rem;
+  font-family: var(--wn-font-display, Oswald, Impact, 'Arial Narrow', sans-serif);
+  font-size: clamp(1.85rem, 6vw, 2.45rem);
+  font-weight: 950;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+
+.tempBlock {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: end;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.temp {
+  font-family: var(--wn-font-display, Oswald, Impact, 'Arial Narrow', sans-serif);
+  font-size: clamp(4.2rem, 16vw, 5.8rem);
+  font-weight: 950;
+  line-height: 0.82;
+  letter-spacing: -0.05em;
+  color: #ffffff;
+  text-shadow: 0 0 30px rgba(57, 255, 20, 0.12);
+}
+
+.condition,
+.meta,
+.details {
+  color: rgba(255, 255, 255, 0.76);
+  line-height: 1.55;
+}
+
+.condition {
+  margin: 0;
+  font-weight: 850;
+}
+
+.meta {
+  margin: 0.35rem 0 0;
+  color: var(--wn-neon-green, #39ff14);
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.metaGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-top: 1.25rem;
+}
+
+.metaItem {
+  min-height: 4.35rem;
+  padding: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.025)),
+    rgba(255, 255, 255, 0.045);
+}
+
+.metaItem span {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.metaItem strong {
+  display: block;
+  color: #ffffff;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.details {
+  margin: 1rem 0 0;
+  font-size: 0.95rem;
+}
+
+.alert {
+  display: grid;
+  gap: 0.25rem;
+  margin-top: 1rem;
+  padding: 0.85rem;
+  border: 1px solid rgba(233, 44, 99, 0.28);
+  border-radius: 1rem;
+  background: rgba(233, 44, 99, 0.1);
+}
+
+.alert strong {
+  color: #ffffff;
+  font-size: 0.78rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.alert span {
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.markets {
+  margin-top: 1.1rem;
+}
+
+.sectionLabel {
+  margin: 0 0 0.65rem;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.7rem;
+  font-weight: 950;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.marketList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.marketLink {
+  display: block;
+  min-width: 0;
+  padding: 0.78rem;
+  border: 1px solid rgba(57, 255, 20, 0.18);
+  border-radius: 0.95rem;
+  color: #ffffff;
+  background: rgba(57, 255, 20, 0.065);
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.marketLink:hover {
+  transform: translateY(-1px);
+  border-color: rgba(57, 255, 20, 0.4);
+  background: rgba(57, 255, 20, 0.1);
+}
+
+.marketLink span {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: var(--wn-neon-green, #39ff14);
+  font-size: 0.68rem;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.marketLink strong {
+  display: block;
+  overflow: hidden;
+  font-size: 0.92rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.updatedAt {
+  margin: 1rem 0 0;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 0.78rem;
+}
+
+@keyframes backdropIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 720px) {
+  .backdrop {
+    place-items: start center;
+    padding-top: 5rem;
+  }
+}
+
+@media (max-width: 460px) {
+  .panel {
+    border-radius: 1.15rem;
+  }
+
+  .tempBlock {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 0.65rem;
+  }
+
+  .metaGrid,
+  .marketList {
+    grid-template-columns: 1fr;
+  }
+
+  .temp {
+    font-size: 4.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .panel {
+    animation: none;
+  }
+
+  .close,
+  .marketLink {
+    transition: none;
+  }
+}

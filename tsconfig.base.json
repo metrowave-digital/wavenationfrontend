@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@wavenation/ui-web": ["packages/ui-web/src/index.ts"],
+      "@wavenation/ui-native": ["packages/ui-native/src/index.ts"],
+      "@wavenation/ui-tv": ["packages/ui-tv/src/index.ts"],
+      "@wavenation/api-client": ["packages/api-client/src/index.ts"],
+      "@wavenation/config": ["packages/config/src/index.ts"],
+      "@wavenation/types": ["packages/types/src/index.ts"],
+      "@wavenation/auth": ["packages/auth/src/index.ts"],
+      "@wavenation/media-sdk": ["packages/media-sdk/src/index.ts"],
+      "@wavenation/analytics": ["packages/analytics/src/index.ts"],
+      "@wavenation/feature-flags": ["packages/feature-flags/src/index.ts"],
+      "@wavenation/utils": ["packages/utils/src/index.ts"]
+    }
+  }
+}

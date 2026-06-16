@@ -29,3 +29,17 @@ textarea,
 select {
   font: inherit;
 }
+
+body {
+  padding-bottom: calc(var(--wn-player-height-desktop, 5.5rem) + env(safe-area-inset-bottom));
+}
+
+@media (max-width: 767px) {
+  body {
+    padding-bottom: calc(
+      var(--wn-player-height-mobile, 4.75rem) +
+      var(--wn-mobile-dock-height, 4.5rem) +
+      env(safe-area-inset-bottom)
+    );
+  }
+}

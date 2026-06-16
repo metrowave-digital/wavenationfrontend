@@ -31,3 +31,11 @@ export * from './components/foundation/AdSlot'
 export * from './components/foundation/MediaPlayerShells'
 
 export * from './styles/breakpoints'
+
+export * from './components/player/playerTypes'
+export * from './components/player/WebPlayer'
+export * from './components/player/PlayerInfo'
+export * from './components/player/PlayerProgress'
+export * from './components/player/PlayerActions'
+export * from './components/player/PlayerPopup'
+export * from './components/player/MobileDock'

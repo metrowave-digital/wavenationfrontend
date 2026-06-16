@@ -22,16 +22,16 @@
     "@wavenation/ui-web": "workspace:^",
     "@wavenation/utils": "workspace:^",
     "graphql": "^17.0.0",
-    "next": "16.2.9",
+    "next": "15.5.19",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/node": "^20.19.43",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
-    "typescript": "^5"
+    "typescript": "^5.9.3"
   }
 }

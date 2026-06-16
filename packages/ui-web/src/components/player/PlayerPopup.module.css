@@ -1,0 +1,205 @@
+/* packages/ui-web/src/components/player/PlayerPopup.module.css */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--wn-z-modal, 1500);
+  display: grid;
+  place-items: end center;
+  padding: clamp(1rem, 2vw, 2rem);
+  background:
+    radial-gradient(circle at 20% 10%, rgb(var(--wn-electric-blue-rgb, 0 179 255) / 0.22), transparent 30rem),
+    radial-gradient(circle at 88% 8%, rgb(var(--wn-magenta-pulse-rgb, 233 44 99) / 0.2), transparent 28rem),
+    rgb(0 0 0 / 0.72);
+  backdrop-filter: blur(18px);
+}
+
+.panel {
+  width: min(100%, 1120px);
+  max-height: min(86vh, 840px);
+  overflow: auto;
+  border: 1px solid rgb(var(--wn-white-rgb, 255 255 255) / 0.13);
+  border-radius: var(--wn-radius-2xl, 2.25rem);
+  background:
+    linear-gradient(135deg, rgb(var(--wn-white-rgb, 255 255 255) / 0.09), rgb(var(--wn-white-rgb, 255 255 255) / 0.035)),
+    #080b10;
+  box-shadow: 0 34px 90px rgb(0 0 0 / 0.58);
+  color: var(--wn-text, #fff);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(1.1rem, 3vw, 2rem);
+  border-bottom: 1px solid rgb(var(--wn-white-rgb, 255 255 255) / 0.1);
+}
+
+.eyebrow {
+  margin: 0 0 0.35rem;
+  color: var(--wn-electric-blue, #00b3ff);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.header h2 {
+  margin: 0;
+  font-family: var(--wn-font-display, Oswald, Impact, sans-serif);
+  font-size: clamp(2.1rem, 7vw, 5.4rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+.closeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  flex: 0 0 auto;
+  border: 1px solid rgb(var(--wn-white-rgb, 255 255 255) / 0.14);
+  border-radius: var(--wn-radius-circle, 50%);
+  background: rgb(var(--wn-white-rgb, 255 255 255) / 0.07);
+  color: var(--wn-text, #fff);
+  cursor: pointer;
+}
+
+.closeButton svg {
+  width: 1.45rem;
+  height: 1.45rem;
+}
+
+.hero {
+  display: grid;
+  gap: 1.2rem;
+  padding: clamp(1.1rem, 3vw, 2rem);
+}
+
+.statusMessage {
+  margin: 0;
+  color: var(--wn-text-secondary, #d7dce3);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.quickLinks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--wn-text-muted, #a2b3c7);
+  font-size: 0.82rem;
+}
+
+.quickLinks a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.4rem;
+  padding: 0 0.85rem;
+  border: 1px solid rgb(var(--wn-electric-blue-rgb, 0 179 255) / 0.3);
+  border-radius: var(--wn-radius-pill, 999rem);
+  background: rgb(var(--wn-electric-blue-rgb, 0 179 255) / 0.1);
+  color: var(--wn-text, #fff);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.quickLinks strong {
+  color: var(--wn-neon-green, #39ff14);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 0 clamp(1.1rem, 3vw, 2rem) clamp(1.1rem, 3vw, 2rem);
+}
+
+.listBlock {
+  min-width: 0;
+  border: 1px solid rgb(var(--wn-white-rgb, 255 255 255) / 0.1);
+  border-radius: var(--wn-radius-xl, 1.75rem);
+  background: rgb(var(--wn-white-rgb, 255 255 255) / 0.045);
+  padding: 1rem;
+}
+
+.listBlock h3 {
+  margin: 0 0 0.85rem;
+  color: var(--wn-text, #fff);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.trackList {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.trackItem {
+  display: grid;
+  grid-template-columns: 1.65rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.trackItem > span {
+  display: grid;
+  width: 1.65rem;
+  height: 1.65rem;
+  place-items: center;
+  border-radius: var(--wn-radius-circle, 50%);
+  background: rgb(var(--wn-electric-blue-rgb, 0 179 255) / 0.12);
+  color: var(--wn-electric-blue, #00b3ff);
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.trackItem p,
+.trackItem small,
+.empty {
+  margin: 0;
+}
+
+.trackItem p {
+  overflow: hidden;
+  color: var(--wn-text, #fff);
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trackItem small,
+.empty {
+  color: var(--wn-text-muted, #a2b3c7);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 767px) {
+  .overlay {
+    align-items: stretch;
+    padding: 0;
+  }
+
+  .panel {
+    width: 100%;
+    max-height: none;
+    min-height: 100dvh;
+    border-radius: 0;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,100 @@
+/* packages/ui-web/src/components/player/PlayerProgress.module.css */
+
+.progress {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.rail {
+  position: relative;
+  min-height: 0.45rem;
+  overflow: hidden;
+  border: 1px solid rgb(var(--wn-white-rgb, 255 255 255) / 0.1);
+  border-radius: var(--wn-radius-pill, 999rem);
+  background:
+    linear-gradient(90deg, rgb(var(--wn-white-rgb, 255 255 255) / 0.06), rgb(var(--wn-white-rgb, 255 255 255) / 0.02)),
+    #07090b;
+}
+
+.liveLine {
+  position: absolute;
+  inset: 0;
+  width: 38%;
+  border-radius: inherit;
+  background: var(--wn-gradient-electric-surge, linear-gradient(135deg, #00b3ff, #39ff14));
+  box-shadow: 0 0 24px rgb(var(--wn-electric-blue-rgb, 0 179 255) / 0.42);
+  opacity: 0.75;
+  transform: translateX(-30%);
+}
+
+.playing .liveLine {
+  animation: wnLiveSweep 2.8s ease-in-out infinite;
+}
+
+.bars {
+  position: absolute;
+  inset: 0.08rem 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.15rem;
+}
+
+.bars span {
+  display: block;
+  width: 0.18rem;
+  height: 45%;
+  border-radius: var(--wn-radius-pill, 999rem);
+  background: rgb(var(--wn-white-rgb, 255 255 255) / 0.46);
+  opacity: 0.38;
+  transform-origin: center;
+}
+
+.playing .bars span {
+  animation: wnSignalBars 820ms ease-in-out infinite alternate;
+}
+
+.labels {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--wn-text-muted, #a2b3c7);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@keyframes wnLiveSweep {
+  0% {
+    transform: translateX(-82%);
+  }
+
+  50% {
+    transform: translateX(160%);
+  }
+
+  100% {
+    transform: translateX(320%);
+  }
+}
+
+@keyframes wnSignalBars {
+  from {
+    height: 28%;
+    opacity: 0.36;
+  }
+
+  to {
+    height: 88%;
+    opacity: 0.88;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .playing .liveLine,
+  .playing .bars span {
+    animation: none;
+  }
+}

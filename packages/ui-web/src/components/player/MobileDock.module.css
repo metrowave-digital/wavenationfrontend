@@ -1,0 +1,78 @@
+/* packages/ui-web/src/components/player/MobileDock.module.css */
+
+.dock {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .dock {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: var(--wn-z-dock, 1100);
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    min-height: calc(var(--wn-mobile-dock-height, 4.5rem) + env(safe-area-inset-bottom));
+    padding: 0.45rem 0.45rem calc(0.45rem + env(safe-area-inset-bottom));
+    border-top: 1px solid rgb(var(--wn-white-rgb, 255 255 255) / 0.12);
+    background:
+      linear-gradient(180deg, rgb(var(--wn-white-rgb, 255 255 255) / 0.075), transparent),
+      rgb(5 7 10 / 0.96);
+    box-shadow: 0 -16px 50px rgb(0 0 0 / 0.5);
+    backdrop-filter: blur(18px);
+  }
+
+  .item,
+  .playItem {
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 0.25rem;
+    min-width: 0;
+    border: 0;
+    border-radius: 1.15rem;
+    background: transparent;
+    color: var(--wn-text-muted, #a2b3c7);
+    cursor: pointer;
+    font: inherit;
+    text-decoration: none;
+  }
+
+  .item svg,
+  .playItem svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .item span,
+  .playItem span {
+    overflow: hidden;
+    max-width: 100%;
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .playItem {
+    color: #061015;
+  }
+
+  .playItem svg {
+    width: 1.55rem;
+    height: 1.55rem;
+  }
+
+  .playItem {
+    background: var(--wn-gradient-electric-surge, linear-gradient(135deg, #00b3ff, #39ff14));
+    box-shadow: 0 0 24px rgb(var(--wn-electric-blue-rgb, 0 179 255) / 0.28);
+  }
+
+  .item:focus-visible,
+  .playItem:focus-visible {
+    outline: 3px solid rgb(var(--wn-electric-blue-rgb, 0 179 255) / 0.7);
+    outline-offset: 2px;
+  }
+}

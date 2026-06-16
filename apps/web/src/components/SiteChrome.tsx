@@ -14,6 +14,8 @@ import {
   getSiteSettings,
 } from '@/lib/wavenation-nav'
 
+import { WavePlayer } from '@/components/WavePlayer'
+
 type SiteChromeProps = {
   children: React.ReactNode
 }
@@ -48,8 +50,11 @@ export async function SiteChrome({ children }: SiteChromeProps) {
       <NewsTicker settings={newsTickerSettings} articles={tickerArticles} />
       <Header siteSettings={siteSettings} navConfig={navConfig} weather={fallbackWeather} />
       <DynamicTicker config={dynamicTickerConfig} />
+
       {children}
+
       <Footer siteSettings={siteSettings} footerConfig={footerConfig} />
+      <WavePlayer />
     </>
   )
 }

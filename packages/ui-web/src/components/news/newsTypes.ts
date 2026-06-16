@@ -13,7 +13,7 @@ export type PayloadPaginated<T> = {
   nextPage?: number | null
 }
 
-export type WNMediaSize = {
+export type WNMediaNewsSize = {
   url?: string | null
   width?: number | null
   height?: number | null
@@ -34,10 +34,10 @@ export type WNMedia = {
   width?: number | null
   height?: number | null
   sizes?: {
-    hero?: WNMediaSize | null
-    card?: WNMediaSize | null
-    thumb?: WNMediaSize | null
-    square?: WNMediaSize | null
+    hero?: WNMediaNewsSize | null
+    card?: WNMediaNewsSize | null
+    thumb?: WNMediaNewsSize | null
+    square?: WNMediaNewsSize | null
   } | null
 }
 

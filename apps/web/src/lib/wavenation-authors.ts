@@ -2,6 +2,7 @@ import type {
   AuthorArticleSummary,
   AuthorBeat,
   AuthorProfileData,
+  AuthorSocialLink,
   AuthorsPagination,
 } from '@wavenation/ui-web'
 
@@ -196,6 +197,18 @@ function normalizeExternalUrl(url?: string | null) {
   return `https://${cleanUrl.replace(/^\/\//, '')}`
 }
 
+function mapSocialLink(link: RawAuthorSocialLink): AuthorSocialLink | null {
+  const url = normalizeExternalUrl(link.url)
+
+  if (!url) return null
+
+  return {
+    id: link.id,
+    platform: link.platform ?? 'link',
+    url,
+  }
+}
+
 function mapBeat(beat: RawBeat): AuthorBeat | null {
   if (!beat?.name) return null
 
@@ -238,12 +251,8 @@ function mapAuthor(author: RawAuthor): AuthorProfileData {
     avatarUrl: getAvatarUrl(author),
     avatarAlt: author.avatar?.alt ?? `${fullName} profile image`,
     socialLinks: (author.socialLinks ?? [])
-      .map((link) => ({
-        id: link.id,
-        platform: link.platform ?? 'link',
-        url: normalizeExternalUrl(link.url),
-      }))
-      .filter((link): link is { id?: string; platform: string; url: string } => Boolean(link.url)),
+  .map(mapSocialLink)
+  .filter((link): link is AuthorSocialLink => Boolean(link)),
     beats,
     aiAuthorityScore: author.aiAuthorityScore ?? undefined,
     slug: author.slug ?? String(author.id),
@@ -352,8 +361,8 @@ export async function getActiveAuthors({
   }
 
   const filtered = mappedAuthors.filter((author) =>
-    author.beats.some((beat) => beat.slug === beatSlug),
-  )
+  (author.beats ?? []).some((beat) => beat.slug === beatSlug),
+)
 
   const paginated = paginateArray(filtered, page, limit)
 

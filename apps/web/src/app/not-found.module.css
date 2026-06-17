@@ -1,0 +1,80 @@
+.page {
+  min-height: 80vh;
+  display: grid;
+  place-items: center;
+  padding: clamp(2rem, 6vw, 5rem) 1rem;
+  background:
+    radial-gradient(circle at 25% 20%, rgba(0, 179, 255, 0.24), transparent 28rem),
+    radial-gradient(circle at 80% 70%, rgba(233, 44, 99, 0.18), transparent 30rem),
+    var(--wn-bg, #0b0d0f);
+  color: var(--wn-text, #fff);
+}
+
+.panel {
+  width: min(100%, 780px);
+  padding: clamp(2rem, 6vw, 4rem);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--wn-radius-2xl, 2.25rem);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025)),
+    rgba(31, 31, 33, 0.72);
+  text-align: center;
+  box-shadow: var(--wn-shadow-xl, 0 36px 90px rgba(0, 0, 0, 0.54));
+}
+
+.code {
+  margin: 0 0 1rem;
+  color: var(--wn-neon-green, #39ff14);
+  font-family: var(--wn-font-display, Oswald, Impact, sans-serif);
+  font-size: clamp(4rem, 16vw, 10rem);
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  text-shadow: 0 0 36px rgba(57, 255, 20, 0.25);
+}
+
+.panel h1 {
+  margin: 0;
+  font-family: var(--wn-font-display, Oswald, Impact, sans-serif);
+  font-size: clamp(2.2rem, 6vw, 4.7rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.panel p:not(.code) {
+  max-width: 620px;
+  margin: 1.2rem auto 0;
+  color: var(--wn-text-secondary, #d7dce3);
+  line-height: 1.75;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1rem;
+  border-radius: var(--wn-radius-pill, 999rem);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.primary {
+  color: #031014;
+  background: var(--wn-gradient-electric-surge, linear-gradient(135deg, #00b3ff, #39ff14));
+}
+
+.secondary {
+  color: var(--wn-white, #fff);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+}

@@ -47,3 +47,5 @@ export * from './components/news/NewsCard'
 export * from './components/news/NewsCollectionShell'
 export * from './components/news/NewsHeroRail'
 export * from './components/news/NewsInfiniteGrid'
+
+export * from './components/authors'

@@ -1,0 +1,9 @@
+.page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 16% 8%, rgb(0 179 255 / 0.18), transparent 30rem),
+    radial-gradient(circle at 84% 18%, rgb(233 44 99 / 0.16), transparent 28rem),
+    radial-gradient(circle at 50% 100%, rgb(57 255 20 / 0.08), transparent 34rem),
+    linear-gradient(180deg, rgb(11 13 15), rgb(14 16 24) 55%, rgb(11 13 15));
+  color: var(--wn-text, #ffffff);
+}

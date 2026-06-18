@@ -1,0 +1,252 @@
+.shell {
+  width: min(100% - 2rem, 1440px);
+  margin-inline: auto;
+  display: grid;
+  gap: clamp(2.25rem, 6vw, 5rem);
+  padding: clamp(2rem, 5vw, 4rem) 0 clamp(4rem, 8vw, 7rem);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(1.2rem, 4vw, 3rem);
+  align-items: center;
+  min-height: 34rem;
+  padding: clamp(1.2rem, 4vw, 2rem);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 2rem;
+  background:
+    radial-gradient(circle at 15% 15%, rgb(0 179 255 / 0.24), transparent 34%),
+    radial-gradient(circle at 85% 20%, rgb(233 44 99 / 0.18), transparent 34%),
+    linear-gradient(135deg, rgb(22 26 45 / 0.86), rgb(11 13 15 / 0.96));
+  box-shadow: 0 32px 90px rgb(0 0 0 / 0.4);
+}
+
+.heroCopy {
+  display: grid;
+  gap: 1rem;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--wn-electric-blue, #00b3ff);
+  font-weight: 950;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+.hero h1,
+.talentSpotlight h2,
+.ctaPanel h2 {
+  margin: 0;
+  font-family: var(--wn-font-display, Oswald, Impact, sans-serif);
+  text-transform: uppercase;
+  letter-spacing: -0.065em;
+  color: #fff;
+}
+
+.hero h1 {
+  max-width: 11ch;
+  font-size: clamp(3.2rem, 9vw, 7.8rem);
+  line-height: 0.86;
+}
+
+.hero p:not(.eyebrow),
+.talentSpotlight p,
+.ctaPanel p {
+  margin: 0;
+  color: rgb(255 255 255 / 0.7);
+  line-height: 1.75;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.3rem;
+}
+
+.heroActions a,
+.fullTalent,
+.ctaPanel a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  border-radius: 999rem;
+  padding: 0.75rem 1rem;
+  font-weight: 950;
+}
+
+.heroActions a:first-child,
+.ctaPanel a {
+  color: #061016;
+  background: linear-gradient(135deg, var(--wn-electric-blue, #00b3ff), var(--wn-neon-green, #39ff14));
+}
+
+.heroActions a:not(:first-child),
+.fullTalent {
+  color: #fff;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  background: rgb(255 255 255 / 0.07);
+}
+
+.leadCard {
+  min-width: 0;
+}
+
+.sectionNav {
+  position: sticky;
+  top: var(--wn-header-offset, 0px);
+  z-index: 20;
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.8rem;
+  margin-top: -1rem;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: 999rem;
+  background: rgb(11 13 15 / 0.82);
+  backdrop-filter: blur(18px);
+}
+
+.sectionNav a {
+  flex: 0 0 auto;
+  border-radius: 999rem;
+  padding: 0.62rem 0.85rem;
+  color: rgb(255 255 255 / 0.76);
+  font-size: 0.86rem;
+  font-weight: 900;
+  background: rgb(255 255 255 / 0.05);
+}
+
+.featuredGrid,
+.ctaGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.talentSpotlight {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr) auto;
+  gap: 1.5rem;
+  align-items: center;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 2rem;
+  background:
+    radial-gradient(circle at 10% 0%, rgb(0 243 201 / 0.16), transparent 30%),
+    linear-gradient(135deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.025));
+}
+
+.talentSpotlight h2,
+.ctaPanel h2 {
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 0.92;
+}
+
+.talentGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.talentCard {
+  display: grid;
+  gap: 0.5rem;
+  justify-items: center;
+  text-align: center;
+  padding: 0.8rem;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 1.2rem;
+  background: rgb(255 255 255 / 0.05);
+}
+
+.talentCard img,
+.talentCard span {
+  width: 4.8rem;
+  height: 4.8rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgb(255 255 255 / 0.18);
+}
+
+.talentCard span {
+  display: grid;
+  place-items: center;
+  font-weight: 950;
+  background: linear-gradient(135deg, var(--wn-electric-blue, #00b3ff), var(--wn-magenta-pulse, #e92c63));
+}
+
+.talentCard strong {
+  color: #fff;
+  line-height: 1.15;
+}
+
+.talentCard em {
+  color: rgb(255 255 255 / 0.58);
+  font-size: 0.76rem;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.ctaPanel {
+  display: grid;
+  justify-items: start;
+  gap: 0.9rem;
+  padding: clamp(1.2rem, 4vw, 2rem);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 2rem;
+  background:
+    radial-gradient(circle at 18% 0%, rgb(0 179 255 / 0.18), transparent 38%),
+    linear-gradient(135deg, rgb(255 255 255 / 0.065), rgb(255 255 255 / 0.025));
+}
+
+@media (max-width: 1050px) {
+  .hero,
+  .talentSpotlight,
+  .ctaGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .talentGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .shell {
+    width: min(100% - 1rem, 1440px);
+    gap: 2.5rem;
+  }
+
+  .hero {
+    min-height: auto;
+    border-radius: 1.4rem;
+  }
+
+  .hero h1 {
+    max-width: 9ch;
+  }
+
+  .heroActions a,
+  .ctaPanel a {
+    flex: 1 1 42%;
+  }
+
+  .sectionNav {
+    margin-inline: -0.25rem;
+    border-radius: 1.2rem;
+  }
+
+  .featuredGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .talentGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

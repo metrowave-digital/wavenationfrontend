@@ -1,0 +1,269 @@
+.shell {
+  width: min(100% - 2rem, 1360px);
+  margin-inline: auto;
+  display: grid;
+  gap: clamp(1.4rem, 4vw, 2.5rem);
+  padding: clamp(2rem, 5vw, 4rem) 0 clamp(4rem, 8vw, 7rem);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.45fr) minmax(0, 1fr);
+  gap: clamp(1.2rem, 4vw, 2.4rem);
+  align-items: center;
+  padding: clamp(1.2rem, 4vw, 2rem);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 2rem;
+  background:
+    radial-gradient(circle at 12% 0%, rgb(0 243 201 / 0.2), transparent 34%),
+    radial-gradient(circle at 90% 30%, rgb(233 44 99 / 0.18), transparent 35%),
+    linear-gradient(135deg, rgb(22 26 45 / 0.84), rgb(11 13 15 / 0.96));
+}
+
+.portraitWrap {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 2rem;
+  background:
+    radial-gradient(circle at 20% 10%, rgb(0 179 255 / 0.24), transparent 36%),
+    radial-gradient(circle at 80% 100%, rgb(233 44 99 / 0.2), transparent 34%),
+    #050608;
+  box-shadow: 0 28px 80px rgb(0 0 0 / 0.36);
+}
+
+.portraitWrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.portraitWrap span {
+  width: 9rem;
+  height: 9rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 2.8rem;
+  font-weight: 950;
+  background: linear-gradient(135deg, var(--wn-electric-blue, #00b3ff), var(--wn-magenta-pulse, #e92c63));
+}
+
+.heroCopy {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--wn-signal-teal, #00f3c9);
+  font-size: 0.78rem;
+  font-weight: 950;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.hero h1,
+.panel h2,
+.bookingPanel h2 {
+  margin: 0;
+  font-family: var(--wn-font-display, Oswald, Impact, sans-serif);
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: -0.06em;
+}
+
+.hero h1 {
+  max-width: 12ch;
+  font-size: clamp(3.1rem, 9vw, 8rem);
+  line-height: 0.86;
+}
+
+.hero p:not(.eyebrow),
+.panel p,
+.bookingPanel p:not(.eyebrow) {
+  margin: 0;
+  color: rgb(255 255 255 / 0.7);
+  line-height: 1.75;
+}
+
+.actions,
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.actions a,
+.socials a,
+.bookingPanel a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.7rem;
+  border-radius: 999rem;
+  padding: 0.7rem 1rem;
+  font-weight: 950;
+}
+
+.actions a:first-child,
+.bookingPanel a {
+  color: #061016;
+  background: linear-gradient(135deg, var(--wn-electric-blue, #00b3ff), var(--wn-signal-teal, #00f3c9));
+}
+
+.actions a:not(:first-child),
+.socials a {
+  color: #fff;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  background: rgb(255 255 255 / 0.06);
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.36fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.mainColumn,
+.sideColumn {
+  display: grid;
+  gap: 1rem;
+}
+
+.panel,
+.bookingPanel {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1rem, 3vw, 1.4rem);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 1.4rem;
+  background: rgb(255 255 255 / 0.045);
+}
+
+.bookingPanel {
+  background:
+    radial-gradient(circle at 15% 0%, rgb(0 243 201 / 0.18), transparent 34%),
+    rgb(255 255 255 / 0.045);
+}
+
+.panel h2,
+.bookingPanel h2 {
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  line-height: 0.95;
+}
+
+.associatedGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.associated {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.85rem;
+  border: 1px solid rgb(255 255 255 / 0.11);
+  border-radius: 1rem;
+  background: rgb(255 255 255 / 0.04);
+}
+
+.associated img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 0.8rem;
+  object-fit: cover;
+}
+
+.associated span {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 6rem;
+  border-radius: 0.8rem;
+  color: rgb(255 255 255 / 0.72);
+  font-size: 0.76rem;
+  font-weight: 950;
+  letter-spacing: 0.16em;
+  background: linear-gradient(135deg, rgb(0 179 255 / 0.18), rgb(233 44 99 / 0.18));
+}
+
+.associated strong {
+  color: #fff;
+}
+
+.associated em {
+  color: rgb(255 255 255 / 0.56);
+  font-size: 0.72rem;
+  font-style: normal;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.facts {
+  display: grid;
+  gap: 0.8rem;
+  margin: 0;
+}
+
+.facts div {
+  display: grid;
+  gap: 0.25rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgb(255 255 255 / 0.1);
+}
+
+.facts div:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.facts dt {
+  color: rgb(255 255 255 / 0.54);
+  font-size: 0.74rem;
+  font-weight: 950;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.facts dd {
+  margin: 0;
+  color: #fff;
+  text-transform: capitalize;
+}
+
+@media (max-width: 1050px) {
+  .hero,
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .portraitWrap {
+    max-width: 34rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .shell {
+    width: min(100% - 1rem, 1360px);
+  }
+
+  .hero,
+  .portraitWrap {
+    border-radius: 1.4rem;
+  }
+
+  .associatedGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .actions a,
+  .bookingPanel a {
+    width: 100%;
+  }
+}

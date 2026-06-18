@@ -49,3 +49,7 @@ export * from './components/news/NewsHeroRail'
 export * from './components/news/NewsInfiniteGrid'
 
 export * from './components/authors'
+
+export * from './components/shows'
+
+export * from './components/talent'

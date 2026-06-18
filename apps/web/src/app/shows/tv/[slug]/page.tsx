@@ -7,26 +7,38 @@ import styles from './page.module.css'
 export const revalidate = 300
 
 type PageProps = {
-  params: Promise<{ slug: string }> | { slug: string }
+  params: Promise<{
+    slug: string
+  }>
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { slug } = await params
   const show = await getTvShowBySlug(slug).catch(() => null)
 
   if (!show) {
     return {
       title: 'TV Show Not Found | WaveNation',
-      robots: { index: false, follow: false },
+      robots: {
+        index: false,
+        follow: false,
+      },
     }
   }
 
+  const description =
+    show.shortDescription ||
+    show.description ||
+    `Watch ${show.title} on WaveNation One.`
+
   return {
     title: `${show.title} | WaveNation One`,
-    description: show.shortDescription || show.description || `Watch ${show.title} on WaveNation One.`,
+    description,
     openGraph: {
       title: show.title,
-      description: show.shortDescription || show.description,
+      description,
       images: show.imageUrl ? [show.imageUrl] : undefined,
     },
   }
@@ -36,11 +48,17 @@ export default async function TvShowDetailPage({ params }: PageProps) {
   const { slug } = await params
   const show = await getTvShowBySlug(slug).catch(() => null)
 
-  if (!show) notFound()
+  if (!show) {
+    notFound()
+  }
 
-  const relatedShows = (await getTvShows().catch(() => []))
-    .filter((related) => related.slug !== show.slug)
-    .slice(0, 3)
+  const relatedShows = await getTvShows()
+    .then((shows) =>
+      shows
+        .filter((related) => related.slug !== show.slug)
+        .slice(0, 3),
+    )
+    .catch(() => [])
 
   return (
     <main className={styles.page}>

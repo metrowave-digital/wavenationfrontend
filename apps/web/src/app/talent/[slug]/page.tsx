@@ -7,26 +7,38 @@ import styles from './page.module.css'
 export const revalidate = 300
 
 type PageProps = {
-  params: Promise<{ slug: string }> | { slug: string }
+  params: Promise<{
+    slug: string
+  }>
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { slug } = await params
   const talent = await getTalentBySlug(slug).catch(() => null)
 
   if (!talent) {
     return {
       title: 'Talent Not Found | WaveNation',
-      robots: { index: false, follow: false },
+      robots: {
+        index: false,
+        follow: false,
+      },
     }
   }
 
+  const description =
+    talent.shortBio ||
+    talent.fullBio ||
+    `Meet ${talent.name} from WaveNation.`
+
   return {
     title: `${talent.name} | WaveNation Talent`,
-    description: talent.shortBio || talent.fullBio || `Meet ${talent.name} from WaveNation.`,
+    description,
     openGraph: {
       title: talent.name,
-      description: talent.shortBio || talent.fullBio,
+      description,
       images: talent.imageUrl ? [talent.imageUrl] : undefined,
     },
   }
@@ -36,7 +48,9 @@ export default async function TalentDetailPage({ params }: PageProps) {
   const { slug } = await params
   const talent = await getTalentBySlug(slug).catch(() => null)
 
-  if (!talent) notFound()
+  if (!talent) {
+    notFound()
+  }
 
   return (
     <main className={styles.page}>

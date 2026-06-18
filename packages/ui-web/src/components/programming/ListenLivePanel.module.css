@@ -1,0 +1,91 @@
+.panel {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--wn-radius-2xl, 2rem);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025)),
+    rgba(15, 20, 28, 0.78);
+  box-shadow: var(--wn-shadow-lg, 0 24px 60px rgba(0, 0, 0, 0.42));
+}
+
+.artwork {
+  position: relative;
+  display: grid;
+  aspect-ratio: 16 / 10;
+  place-items: center;
+  background:
+    radial-gradient(circle at 35% 25%, rgba(0, 179, 255, 0.35), transparent 40%),
+    radial-gradient(circle at 70% 30%, rgba(233, 44, 99, 0.28), transparent 38%),
+    linear-gradient(135deg, #0b0d0f, #161a2d);
+}
+
+.artwork::after {
+  position: absolute;
+  inset: auto 0 0;
+  height: 45%;
+  content: '';
+  background: linear-gradient(180deg, transparent, rgba(11, 13, 15, 0.92));
+}
+
+.artwork img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.artwork span {
+  font-family: var(--wn-font-display, Oswald, sans-serif);
+  font-size: clamp(4rem, 12vw, 7rem);
+  font-weight: 900;
+  letter-spacing: -0.08em;
+}
+
+.body {
+  padding: clamp(1.2rem, 3vw, 1.7rem);
+}
+
+.statusRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.badge,
+.liveBadge,
+.meta {
+  border-radius: var(--wn-radius-pill, 999px);
+  padding: 0.34rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+.badge {
+  background: rgba(0, 179, 255, 0.16);
+  color: var(--wn-electric-blue, #00b3ff);
+}
+
+.liveBadge {
+  background: rgba(57, 255, 20, 0.16);
+  color: var(--wn-neon-green, #39ff14);
+}
+
+.meta {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--wn-text-muted, #a2b3c7);
+}
+
+.body h2 {
+  margin: 0.8rem 0 0;
+  font-family: var(--wn-font-display, Oswald, sans-serif);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.body p {
+  margin: 0.9rem 0 0;
+  color: var(--wn-text-secondary, #d7dce3);
+  line-height: 1.65;
+}

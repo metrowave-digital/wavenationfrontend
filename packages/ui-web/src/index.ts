@@ -53,3 +53,7 @@ export * from './components/authors'
 export * from './components/shows'
 
 export * from './components/talent'
+
+export * from './components/programming'
+
+export * from './components/forms'

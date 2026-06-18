@@ -1,0 +1,24 @@
+.list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.empty {
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  border-radius: var(--wn-radius-xl, 1.75rem);
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.empty h3 {
+  margin: 0;
+  font-family: var(--wn-font-display, Oswald, sans-serif);
+  font-size: 1.6rem;
+  text-transform: uppercase;
+}
+
+.empty p {
+  margin: 0.5rem 0 0;
+  color: var(--wn-text-secondary, #d7dce3);
+  line-height: 1.6;
+}

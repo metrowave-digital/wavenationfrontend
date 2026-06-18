@@ -1,0 +1,97 @@
+.page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(57, 255, 20, 0.14), transparent 28rem),
+    radial-gradient(circle at top right, rgba(0, 179, 255, 0.18), transparent 30rem),
+    var(--wn-bg, #0b0d0f);
+  color: var(--wn-text, #fff);
+  padding: clamp(2rem, 5vw, 5rem) clamp(1rem, 4vw, 3rem);
+}
+
+.hero,
+.formSection {
+  width: min(100%, var(--wn-container-wide, 1440px));
+  margin-inline: auto;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.42fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: stretch;
+}
+
+.eyebrow {
+  margin: 0 0 0.75rem;
+  color: var(--wn-neon-green, #39ff14);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 0;
+  max-width: 900px;
+  font-family: var(--wn-font-display, Oswald, sans-serif);
+  font-size: clamp(3.4rem, 10vw, 8rem);
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.hero p:not(.eyebrow),
+.guidelines li {
+  color: var(--wn-text-secondary, #d7dce3);
+  line-height: 1.7;
+}
+
+.hero p:not(.eyebrow) {
+  max-width: 760px;
+  font-size: clamp(1rem, 2vw, 1.18rem);
+}
+
+.backupNotice {
+  border-left: 3px solid var(--wn-neon-green, #39ff14);
+  padding-left: 1rem;
+}
+
+.backupNotice a {
+  color: var(--wn-neon-green, #39ff14);
+  font-weight: 800;
+}
+
+.guidelines {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--wn-radius-2xl, 2rem);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: rgba(15, 20, 28, 0.78);
+  box-shadow: var(--wn-shadow-md, 0 16px 36px rgba(0, 0, 0, 0.34));
+}
+
+.guidelines ul {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0 0 1.5rem;
+  padding-left: 1.15rem;
+}
+
+.guidelines a {
+  display: inline-flex;
+  border-radius: var(--wn-radius-pill, 999px);
+  border: 1px solid rgba(57, 255, 20, 0.4);
+  padding: 0.8rem 1rem;
+  color: var(--wn-neon-green, #39ff14);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.formSection {
+  margin-top: clamp(1.5rem, 5vw, 3rem);
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+}

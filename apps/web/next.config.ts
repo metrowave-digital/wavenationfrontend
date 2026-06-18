@@ -13,11 +13,49 @@ const nextConfig: NextConfig = {
     '@wavenation/feature-flags',
     '@wavenation/utils',
   ],
+
   images: {
     remotePatterns: [
+      // Payload CMS media
       {
         protocol: 'https',
         hostname: 'cms.wavenation.online',
+      },
+
+      // Optional Render CMS fallback, useful if any old media URLs still point here
+      {
+        protocol: 'https',
+        hostname: 'wavenation-cms.onrender.com',
+      },
+
+      // Live365 station/player/album art images
+      {
+        protocol: 'https',
+        hostname: 'live365.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.live365.com',
+      },
+
+      // Common CDN pattern in case Live365 metadata returns CDN-hosted artwork
+      {
+        protocol: 'https',
+        hostname: '**.cloudfront.net',
+      },
+
+      // Future Cloudflare/R2/CDN-hosted WaveNation assets
+      {
+        protocol: 'https',
+        hostname: '**.wavenation.online',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.wavenation.media',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.wavenation.plus',
       },
     ],
   },

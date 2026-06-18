@@ -1,5 +1,6 @@
 // packages/ui-web/src/components/player/PlayerPopup.tsx
 
+import Link from 'next/link'
 import { RiCloseLine, RiExternalLinkLine } from 'react-icons/ri'
 import { PlayerActions } from './PlayerActions'
 import { PlayerInfo } from './PlayerInfo'
@@ -46,6 +47,7 @@ function TrackList({
           {items.slice(0, 5).map((item, index) => (
             <article key={item.id || `${item.title}-${index}`} className={styles.trackItem}>
               <span>{index + 1}</span>
+
               <div>
                 <p>{item.title}</p>
                 <small>{item.artist || item.station || 'WaveNation FM'}</small>
@@ -70,7 +72,7 @@ export function PlayerPopup({
   queue = [],
   recentlyPlayed = [],
   defaultArtworkUrl,
-  listenHref = '/listen',
+  listenHref = '/listen-live',
   metadataEndpoint,
   statusMessage,
   onClose,
@@ -81,6 +83,8 @@ export function PlayerPopup({
   onShare,
 }: PlayerPopupProps) {
   if (!isOpen) return null
+
+  const hasMetadataEndpoint = Boolean(metadataEndpoint)
 
   return (
     <div className={styles.overlay} role="presentation" onMouseDown={onClose}>
@@ -97,7 +101,12 @@ export function PlayerPopup({
             <h2>Amplify your vibe.</h2>
           </div>
 
-          <button type="button" className={styles.closeButton} onClick={onClose} aria-label="Close player">
+          <button
+            type="button"
+            className={styles.closeButton}
+            onClick={onClose}
+            aria-label="Close player"
+          >
             <RiCloseLine aria-hidden="true" />
           </button>
         </div>
@@ -122,14 +131,13 @@ export function PlayerPopup({
           />
 
           <div className={styles.quickLinks}>
-            <a href={listenHref}>
+            <Link href={listenHref}>
               Open Listen Page
               <RiExternalLinkLine aria-hidden="true" />
-            </a>
+            </Link>
 
             <span>
-              Metadata:{' '}
-              <strong>{metadataEndpoint ? 'Ready to connect' : 'Coming soon'}</strong>
+              {hasMetadataEndpoint ? 'Metadata connected' : 'Live metadata coming soon'}
             </span>
           </div>
         </div>
@@ -137,7 +145,7 @@ export function PlayerPopup({
         <div className={styles.grid}>
           <TrackList
             title="Coming Up"
-            emptyText="Queue will appear here when your now-playing endpoint is connected."
+            emptyText="Upcoming tracks and shows will appear here after metadata is connected."
             items={queue}
           />
 

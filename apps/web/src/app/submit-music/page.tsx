@@ -5,7 +5,8 @@ import styles from './page.module.css'
 
 export const metadata: Metadata = {
   title: 'Submit Music | WaveNation',
-  description: 'Submit clean music, links, press kit details, and artist information for WaveNation airplay consideration.',
+  description:
+    'Submit clean music, links, press kit details, and artist information for WaveNation airplay consideration.',
 }
 
 export default function SubmitMusicPage() {
@@ -19,19 +20,23 @@ export default function SubmitMusicPage() {
             Send your music to WaveNation for airplay, editorial, playlist, interview, or creator
             spotlight consideration. Please submit links only for now.
           </p>
+
           <p className={styles.backupNotice}>
-            If this form does not work email to <a href="mailto:wavenationfm@gmail.com">wavenationfm@gmail.com</a>.
+            If this form does not work, email{' '}
+            <a href="mailto:wavenationfm@gmail.com">wavenationfm@gmail.com</a>.
           </p>
         </div>
 
         <aside className={styles.guidelines}>
           <p className={styles.eyebrow}>Before You Submit</p>
+
           <ul>
             <li>Use clean radio edits when available.</li>
             <li>Make sure all download and streaming links are public.</li>
             <li>Only submit music you own or are authorized to submit.</li>
             <li>Include artist socials, press kit links, and a short bio.</li>
           </ul>
+
           <Link href="/listen-live">Listen to WaveNation FM</Link>
         </aside>
       </section>

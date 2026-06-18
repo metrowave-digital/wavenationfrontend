@@ -8,11 +8,14 @@ export const metadata: Metadata = {
   description: 'Browse WaveNation radio and TV programming schedules.',
 }
 
+type SearchParams = Record<string, string | string[] | undefined>
+
 type PageProps = {
-  searchParams?: Promise<Record<string, string | string[] | undefined>> | Record<string, string | string[] | undefined>
+  searchParams?: Promise<SearchParams>
 }
 
 export default async function SchedulePage({ searchParams }: PageProps) {
-  const params = await searchParams
+  const params = searchParams ? await searchParams : {}
+
   return <ProgrammingSchedulePage searchParams={params} />
 }

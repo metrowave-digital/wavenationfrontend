@@ -16,21 +16,28 @@ export const metadata: Metadata = {
     'Listen to WaveNation FM live and see what shows are coming up over the next 48 hours.',
 }
 
+type SearchParams = Record<string, string | string[] | undefined>
+
 type PageProps = {
-  searchParams?: Promise<Record<string, string | string[] | undefined>> | Record<string, string | string[] | undefined>
+  searchParams?: Promise<SearchParams>
 }
 
-const streamUrl = process.env.NEXT_PUBLIC_WAVENATION_RADIO_STREAM_URL || 'https://streaming.live365.com/a49099'
-const streamType = process.env.NEXT_PUBLIC_WAVENATION_RADIO_STREAM_TYPE || 'audio/mpeg'
+const streamUrl =
+  process.env.NEXT_PUBLIC_WAVENATION_RADIO_STREAM_URL || 'https://streaming.live365.com/a49099'
+
+const streamType =
+  process.env.NEXT_PUBLIC_WAVENATION_RADIO_STREAM_TYPE || 'audio/mpeg'
 
 function timezoneHref(zone: DisplayTimeZone) {
   return `/listen-live?tz=${zone}`
 }
 
 export default async function ListenLivePage({ searchParams }: PageProps) {
-  const params = await searchParams
-  const displayZone = normalizeDisplayTimeZone(params?.tz)
+  const params = searchParams ? await searchParams : {}
+
+  const displayZone = normalizeDisplayTimeZone(params.tz)
   const schedule = await getScheduleWindow({ displayZone, days: 8 })
+
   const liveRadio = schedule.liveNow.filter((item) => item.medium === 'radio')
   const currentShow = liveRadio[0]
 
@@ -46,9 +53,17 @@ export default async function ListenLivePage({ searchParams }: PageProps) {
           </p>
 
           <div className={styles.actions}>
-            <a className={styles.primaryButton} href={`#radio-player`}>Start Listening</a>
-            <Link className={styles.secondaryButton} href="/schedule">Full Schedule</Link>
-            <Link className={styles.secondaryButton} href="/submit-music">Submit Music</Link>
+            <a className={styles.primaryButton} href="#radio-player">
+              Start Listening
+            </a>
+
+            <Link className={styles.secondaryButton} href="/schedule">
+              Full Schedule
+            </Link>
+
+            <Link className={styles.secondaryButton} href="/submit-music">
+              Submit Music
+            </Link>
           </div>
         </div>
 
@@ -66,12 +81,17 @@ export default async function ListenLivePage({ searchParams }: PageProps) {
         />
       </section>
 
-      <section id="radio-player" className={styles.playerShell} aria-label="WaveNation FM live stream player">
+      <section
+        id="radio-player"
+        className={styles.playerShell}
+        aria-label="WaveNation FM live stream player"
+      >
         <div>
           <p className={styles.eyebrow}>Live Stream</p>
           <h2>WaveNation FM Radio Stream</h2>
           <p>
-            Press play to start the live stream. Some browsers may require a click before audio begins.
+            Press play to start the live stream. Some browsers may require a click before audio
+            begins.
           </p>
         </div>
 
@@ -89,8 +109,16 @@ export default async function ListenLivePage({ searchParams }: PageProps) {
 
         <ScheduleTabs
           tabs={[
-            { label: 'Eastern Time', href: timezoneHref('ET'), active: displayZone === 'ET' },
-            { label: 'Central Time', href: timezoneHref('CT'), active: displayZone === 'CT' },
+            {
+              label: 'Eastern Time',
+              href: timezoneHref('ET'),
+              active: displayZone === 'ET',
+            },
+            {
+              label: 'Central Time',
+              href: timezoneHref('CT'),
+              active: displayZone === 'CT',
+            },
           ]}
         />
       </section>

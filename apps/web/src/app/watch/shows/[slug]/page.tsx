@@ -8,7 +8,7 @@ import { getEpisodesForShow, getTVShowBySlug } from '@/lib/wavenation-watch'
 export const revalidate = 300
 
 type PageProps = {
-  params: Promise<{ slug: string }> | { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 type TVShowProfileShow = ComponentProps<typeof TVShowProfile>['show']
@@ -167,8 +167,7 @@ function getStructuredData(
         '@id': `${pageUrl}#series`,
         name: show.title,
         description:
-          show.description ||
-          `WaveNation Watch series page for ${show.title}.`,
+          show.description || `WaveNation Watch series page for ${show.title}.`,
         image: imageUrl,
         url: pageUrl,
         publisher: {

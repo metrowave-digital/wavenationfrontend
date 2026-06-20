@@ -8,7 +8,7 @@ import { getEventBySlug } from '@/lib/wavenation-watch'
 export const revalidate = 300
 
 type PageProps = {
-  params: Promise<{ slug: string }> | { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 type EventProfileEvent = ComponentProps<typeof EventProfile>['event']
@@ -181,7 +181,8 @@ export default async function WatchEventDetailPage({ params }: PageProps) {
     ...event,
     heroImage: event.heroImage || event.posterImage || fallbackEventImage,
     posterImage: event.posterImage || event.heroImage || fallbackEventImage,
-    socialCard: event.socialCard || event.heroImage || event.posterImage || fallbackEventImage,
+    socialCard:
+      event.socialCard || event.heroImage || event.posterImage || fallbackEventImage,
   }
 
   return (

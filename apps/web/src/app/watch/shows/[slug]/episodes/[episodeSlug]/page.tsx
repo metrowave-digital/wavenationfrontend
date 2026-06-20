@@ -8,9 +8,7 @@ import { getTVShowBySlug, getVODBySlug } from '@/lib/wavenation-watch'
 export const revalidate = 300
 
 type PageProps = {
-  params:
-    | Promise<{ slug: string; episodeSlug: string }>
-    | { slug: string; episodeSlug: string }
+  params: Promise<{ slug: string; episodeSlug: string }>
 }
 
 type VODProfileItem = ComponentProps<typeof VODProfile>['item']
@@ -82,7 +80,9 @@ export async function generateMetadata({
   const pageTitle = `${episode.title} | WaveNation Watch`
   const pageDescription =
     episode.description ||
-    `Watch ${episode.title}${show ? ` from ${show.title}` : ''} on WaveNation Watch.`
+    `Watch ${episode.title}${
+      show ? ` from ${show.title}` : ''
+    } on WaveNation Watch.`
 
   const imageUrl = toAbsoluteUrl(episode.poster?.url)
 

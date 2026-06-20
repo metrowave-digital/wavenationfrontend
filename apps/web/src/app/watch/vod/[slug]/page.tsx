@@ -8,18 +8,21 @@ import { getVODBySlug } from '@/lib/wavenation-watch'
 
 export const revalidate = 300
 
+type PageParams = {
+  slug: string
+}
+
 type PageProps = {
-  params: Promise<{ slug: string }> | { slug: string }
+  params: Promise<PageParams>
 }
 
 type VODProfileItem = ComponentProps<typeof VODProfile>['item']
 type VODPlayerItem = ComponentProps<typeof VODPlayer>['item']
 type WatchImage = NonNullable<VODProfileItem['poster']>
 
-type VODProfileItemWithMux = VODProfileItem & {
+type VODProfileItemWithPlayback = VODProfileItem & {
   provider?: string | null
   muxPlaybackId?: string | null
-  muxAssetId?: string | null
   signedPlayback?: boolean | null
   hlsUrl?: string | null
   embedUrl?: string | null
@@ -55,20 +58,20 @@ function getPosterUrl(item: VODProfileItem) {
 }
 
 function toVODPlayerItem(item: VODProfileItem): VODPlayerItem {
-  const muxItem = item as VODProfileItemWithMux
+  const playbackItem = item as VODProfileItemWithPlayback
   const posterUrl = getPosterUrl(item)
 
   return {
     id: item.id,
     title: item.title,
-    provider: muxItem.provider || 'mux',
-    muxPlaybackId: muxItem.muxPlaybackId || null,
-    signedPlayback: muxItem.signedPlayback ?? item.access.isLocked,
+    provider: playbackItem.provider || 'mux',
+    muxPlaybackId: playbackItem.muxPlaybackId || null,
+    signedPlayback: playbackItem.signedPlayback ?? item.access.isLocked,
     poster: posterUrl,
     posterUrl,
     image: posterUrl,
-    hlsUrl: muxItem.hlsUrl || null,
-    embedUrl: muxItem.embedUrl || null,
+    hlsUrl: playbackItem.hlsUrl || null,
+    embedUrl: playbackItem.embedUrl || null,
     access: item.access,
   }
 }
@@ -224,7 +227,7 @@ export default async function VODDetailPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(getStructuredData(profileItem, slug)).replace(
             /</g,
-            '\\u003c',
+            '\\u003c'
           ),
         }}
       />

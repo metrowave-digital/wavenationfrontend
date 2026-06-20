@@ -13,7 +13,7 @@ type TalentPageParams = {
 }
 
 type PageProps = {
-  params: Promise<TalentPageParams> | TalentPageParams
+  params: Promise<TalentPageParams>
 }
 
 function getSiteUrl() {
@@ -33,7 +33,11 @@ function getMetadataBase() {
 }
 
 function absoluteUrl(pathOrUrl: string) {
-  return new URL(pathOrUrl, getSiteUrl()).toString()
+  try {
+    return new URL(pathOrUrl, getMetadataBase()).toString()
+  } catch {
+    return new URL('/', getMetadataBase()).toString()
+  }
 }
 
 function truncateDescription(value: string | null | undefined, fallback: string) {
@@ -53,7 +57,7 @@ function toJsonLd(value: unknown) {
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { slug } = await Promise.resolve(params)
+  const { slug } = await params
   const talent = await getTalentBySlug(slug).catch(() => null)
 
   if (!talent) {
@@ -78,7 +82,7 @@ export async function generateMetadata({
 
   const canonical = `/talent/${talent.slug}`
 
-  const image = talent.imageUrl
+  const images = talent.imageUrl
     ? [
         {
           url: talent.imageUrl,
@@ -107,7 +111,7 @@ export async function generateMetadata({
       type: 'profile',
       url: canonical,
       siteName: 'WaveNation',
-      images: image,
+      images,
     },
     twitter: {
       card: 'summary_large_image',
@@ -130,7 +134,7 @@ export async function generateMetadata({
 }
 
 export default async function TalentDetailPage({ params }: PageProps) {
-  const { slug } = await Promise.resolve(params)
+  const { slug } = await params
   const talent = await getTalentBySlug(slug).catch(() => null)
 
   if (!talent) {

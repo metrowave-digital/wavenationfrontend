@@ -17,7 +17,7 @@ type TalentPageSearchParams = {
 }
 
 type PageProps = {
-  searchParams?: Promise<TalentPageSearchParams> | TalentPageSearchParams
+  searchParams?: Promise<TalentPageSearchParams>
 }
 
 function getSiteUrl() {
@@ -37,7 +37,11 @@ function getMetadataBase() {
 }
 
 function absoluteUrl(pathOrUrl: string) {
-  return new URL(pathOrUrl, getSiteUrl()).toString()
+  try {
+    return new URL(pathOrUrl, getMetadataBase()).toString()
+  } catch {
+    return new URL('/', getMetadataBase()).toString()
+  }
 }
 
 function readFirst(value?: string | string[]) {
@@ -63,7 +67,7 @@ function formatRoleTitle(role: string) {
 
 function getStringProperty<TalentItem extends object>(
   person: TalentItem,
-  key: 'role' | 'roleLabel' | 'type' | 'formatLabel',
+  key: 'role' | 'roleLabel' | 'type' | 'formatLabel'
 ) {
   const value = person[key as keyof TalentItem]
   return typeof value === 'string' ? value : undefined
@@ -71,7 +75,7 @@ function getStringProperty<TalentItem extends object>(
 
 function getStringArrayProperty<TalentItem extends object>(
   person: TalentItem,
-  key: 'roles',
+  key: 'roles'
 ) {
   const value = person[key as keyof TalentItem]
 
@@ -84,7 +88,7 @@ function getStringArrayProperty<TalentItem extends object>(
 
 function filterTalentByActiveRole<TalentItem extends object>(
   talent: TalentItem[],
-  activeRole?: string,
+  activeRole?: string
 ) {
   const normalizedRole = normalizeValue(activeRole)
 
@@ -123,11 +127,13 @@ function toJsonLd(value: unknown) {
 export async function generateMetadata({
   searchParams,
 }: PageProps): Promise<Metadata> {
-  const resolvedSearchParams = await Promise.resolve(searchParams ?? {})
+  const resolvedSearchParams = searchParams ? await searchParams : {}
   const activeRole = safeRole(readFirst(resolvedSearchParams.role))
   const roleTitle = activeRole ? formatRoleTitle(activeRole) : undefined
 
-  const title = roleTitle ? `${roleTitle} Talent | WaveNation` : 'Talent | WaveNation'
+  const title = roleTitle
+    ? `${roleTitle} Talent | WaveNation`
+    : 'Talent | WaveNation'
 
   const description = roleTitle
     ? `Meet WaveNation ${roleTitle} talent, hosts, DJs, creators, and on-air personalities.`
@@ -178,7 +184,7 @@ export async function generateMetadata({
 }
 
 export default async function TalentPage({ searchParams }: PageProps) {
-  const resolvedSearchParams = await Promise.resolve(searchParams ?? {})
+  const resolvedSearchParams = searchParams ? await searchParams : {}
 
   const rawRole = resolvedSearchParams.role
   const activeRole = safeRole(readFirst(rawRole))

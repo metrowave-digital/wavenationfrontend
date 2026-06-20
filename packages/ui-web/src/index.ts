@@ -41,7 +41,7 @@ export * from './components/player/PlayerPopup'
 export * from './components/player/MobileDock'
 
 export * from './components/news/newsTypes'
-export * from './components/news/ArticleRenderer'
+export { ArticleRenderer } from './components/news/ArticleRenderer'
 export * from './components/news/ArticleShell'
 export * from './components/news/NewsCard'
 export * from './components/news/NewsCollectionShell'
@@ -63,4 +63,3 @@ export * from './components/music'
 export * from './components/watch'
 
 export * from './components/marketing-leads'
-

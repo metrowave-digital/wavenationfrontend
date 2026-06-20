@@ -6,7 +6,7 @@ export const revalidate = 300
 type SearchParams = Record<string, string | string[] | undefined>
 
 type PageProps = {
-  searchParams?: Promise<SearchParams> | SearchParams
+  searchParams?: Promise<SearchParams>
 }
 
 const route = '/schedule'

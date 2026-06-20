@@ -38,6 +38,8 @@ const fallbackWatchHomeData: WatchHomeData = {
   latestVod: [],
   shows: [],
   events: [],
+  videoProvider: 'mux' as WatchHomeData['videoProvider'],
+  muxEnabled: false,
   cloudflareAccountHash: '',
 }
 
@@ -233,7 +235,9 @@ export default async function WatchPage() {
           image: show.posterArt || show.heroBanner || fallbackWatchImage,
           badge: show.network,
         }))}
-        actions={[{ label: 'All Shows', href: '/watch/shows', variant: 'secondary' }]}
+        actions={[
+          { label: 'All Shows', href: '/watch/shows', variant: 'secondary' },
+        ]}
       />
 
       <WatchRail
@@ -248,7 +252,9 @@ export default async function WatchPage() {
           badge: event.eventType,
           locked: event.access.isLocked,
         }))}
-        actions={[{ label: 'Events', href: '/watch/events', variant: 'secondary' }]}
+        actions={[
+          { label: 'Events', href: '/watch/events', variant: 'secondary' },
+        ]}
       />
     </WatchPageShell>
   )

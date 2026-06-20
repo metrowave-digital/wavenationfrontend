@@ -36,6 +36,10 @@
     transform 160ms ease;
 }
 
+.profileButton {
+  display: var(--wn-header-profile-display, inline-grid);
+}
+
 .icon {
   width: 1.18rem;
   height: 1.18rem;
@@ -63,7 +67,7 @@
 }
 
 .weatherButton {
-  display: inline-flex;
+  display: var(--wn-header-weather-display, inline-flex);
   align-items: center;
   gap: 0.65rem;
   min-height: 2.65rem;

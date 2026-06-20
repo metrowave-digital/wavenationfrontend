@@ -50,7 +50,7 @@ export function HeaderActions({
 
       <button
         type="button"
-        className={styles.iconButton}
+        className={`${styles.iconButton} ${styles.profileButton}`}
         onClick={onProfile}
         aria-label="Open profile"
       >

@@ -22,7 +22,7 @@ type MusicSubmissionPayload = {
   airplayPermission?: boolean
 }
 
-const backupMessage = 'If this form does not work email to wavenationfm@gmail.com.'
+const backupMessage = 'If this form does not work email to music@wavenation.online.'
 
 export async function POST(request: Request) {
   let payload: MusicSubmissionPayload

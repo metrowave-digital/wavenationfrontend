@@ -1,0 +1,85 @@
+.artwork {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(0, 179, 255, 0.38), transparent 34%),
+    radial-gradient(circle at 82% 12%, rgba(233, 44, 99, 0.3), transparent 34%),
+    linear-gradient(135deg, rgba(11, 13, 15, 0.95), rgba(22, 26, 45, 0.98));
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.32);
+}
+
+.square {
+  aspect-ratio: 1;
+  border-radius: 1.5rem;
+}
+
+.wide {
+  aspect-ratio: 16 / 9;
+  border-radius: 1.75rem;
+}
+
+.circle {
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+.artwork img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+}
+
+.placeholder span {
+  font-family: var(--wn-font-display, Oswald, Impact, sans-serif);
+  font-size: clamp(2rem, 7vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.08em;
+  color: rgba(255, 255, 255, 0.88);
+  text-shadow: 0 0 30px rgba(0, 179, 255, 0.4);
+}
+
+.eyebrow {
+  position: absolute;
+  left: 0.85rem;
+  bottom: 0.85rem;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  padding: 0.35rem 0.65rem;
+  background: rgba(11, 13, 15, 0.76);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  backdrop-filter: blur(14px);
+}
+
+.accent_neon_green {
+  background:
+    radial-gradient(circle at 18% 16%, rgba(57, 255, 20, 0.32), transparent 36%),
+    linear-gradient(135deg, rgba(11, 13, 15, 0.95), rgba(22, 26, 45, 0.98));
+}
+
+.accent_magenta_pulse,
+.accent_southern_heat {
+  background:
+    radial-gradient(circle at 18% 16%, rgba(233, 44, 99, 0.34), transparent 36%),
+    radial-gradient(circle at 80% 20%, rgba(0, 179, 255, 0.28), transparent 34%),
+    linear-gradient(135deg, rgba(11, 13, 15, 0.95), rgba(22, 26, 45, 0.98));
+}
+
+.accent_signal_teal {
+  background:
+    radial-gradient(circle at 18% 16%, rgba(0, 243, 201, 0.32), transparent 36%),
+    linear-gradient(135deg, rgba(11, 13, 15, 0.95), rgba(22, 26, 45, 0.98));
+}

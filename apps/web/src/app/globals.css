@@ -3,6 +3,8 @@
 :root {
   --wn-font-body: var(--font-inter), Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --wn-font-display: var(--font-oswald), Oswald, Impact, 'Arial Narrow', sans-serif;
+  --wn-header-weather-display: none;
+  --wn-header-profile-display: none;
 }
 
 html,

@@ -19,7 +19,7 @@
     ".next/types/**/*.ts",
     "src/**/*.ts",
     "src/**/*.tsx"
-  ],
+, "../../packages/ui-web/src/components/watch/VODPlayer.tsx"  ],
   "exclude": [
     "node_modules"
   ]

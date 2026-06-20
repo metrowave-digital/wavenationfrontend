@@ -41,7 +41,7 @@ export function AuthorsDirectory({
           <h1>Authors & Contributors</h1>
           <p>
             Meet the editors, staff writers, and contributors shaping WaveNation’s coverage across
-            music, film, sports, culture, business, technology, lifestyle, and community stories.
+            music, film, sports, culture, business and technology.
           </p>
         </div>
       </section>

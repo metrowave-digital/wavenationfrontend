@@ -1,0 +1,7 @@
+.pageSection { padding: clamp(2rem, 5vw, 4.5rem) 0; }
+.container { width: min(100% - 2rem, var(--wn-container-wide, 1440px)); margin-inline: auto; }
+.header { display:flex; justify-content:space-between; gap:1rem; align-items:end; margin-bottom:1.25rem; }
+.kicker { margin:0 0 .45rem; color:var(--wn-electric-blue,#00b3ff); font-weight:900; letter-spacing:.12em; text-transform:uppercase; }
+.title { margin:0; font-family:var(--wn-font-display, Oswald, sans-serif); text-transform:uppercase; font-size:clamp(2rem,5vw,4rem); line-height:.95; }
+.copy { color:var(--wn-text-secondary,#d7dce3); line-height:1.7; max-width:68ch; }
+@media (max-width: 760px){ .header { align-items:start; flex-direction:column; } }

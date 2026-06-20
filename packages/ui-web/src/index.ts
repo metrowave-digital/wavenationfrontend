@@ -57,3 +57,10 @@ export * from './components/talent'
 export * from './components/programming'
 
 export * from './components/forms'
+
+export * from './components/music'
+
+export * from './components/watch'
+
+export * from './components/marketing-leads'
+

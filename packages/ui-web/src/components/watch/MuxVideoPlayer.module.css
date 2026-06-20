@@ -1,0 +1,72 @@
+.shell {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--wn-radius-xl, 1.75rem);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(233, 44, 99, 0.24), transparent 34%),
+    radial-gradient(circle at 90% 30%, rgba(0, 179, 255, 0.2), transparent 36%),
+    #050608;
+  box-shadow:
+    0 26px 80px rgba(0, 0, 0, 0.5),
+    0 0 34px rgba(233, 44, 99, 0.16);
+}
+
+.player {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 240px;
+  background: #050608;
+  --media-object-fit: cover;
+  --media-accent-color: var(--wn-magenta-pulse, #e92c63);
+  --media-control-background: rgba(11, 13, 15, 0.78);
+  --media-control-hover-background: rgba(31, 31, 33, 0.92);
+  --media-font-family: var(--wn-font-body, Inter, system-ui, sans-serif);
+}
+
+.emptyState {
+  display: grid;
+  min-height: 280px;
+  place-items: center;
+  gap: 0.5rem;
+  padding: 2rem;
+  text-align: center;
+  border: 1px dashed rgba(255, 255, 255, 0.22);
+  border-radius: var(--wn-radius-xl, 1.75rem);
+  background:
+    linear-gradient(135deg, rgba(22, 26, 45, 0.84), rgba(11, 13, 15, 0.96)),
+    #0b0d0f;
+  color: var(--wn-text, #ffffff);
+}
+
+.emptyState strong {
+  font-family: var(--wn-font-display, Oswald, Impact, sans-serif);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  text-transform: uppercase;
+}
+
+.emptyState p {
+  max-width: 32rem;
+  margin: 0;
+  color: var(--wn-text-secondary, #d7dce3);
+}
+
+.emptyEyebrow {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--wn-magenta-pulse, #e92c63);
+}
+
+@media (max-width: 640px) {
+  .shell {
+    border-radius: var(--wn-radius-lg, 1.25rem);
+  }
+
+  .player {
+    min-height: 210px;
+  }
+}

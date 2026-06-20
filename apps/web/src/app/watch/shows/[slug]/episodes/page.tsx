@@ -8,8 +8,12 @@ import styles from './page.module.css'
 
 export const revalidate = 300
 
+type PageParams = {
+  slug: string
+}
+
 type PageProps = {
-  params: Promise<{ slug: string }> | { slug: string }
+  params: Promise<PageParams>
 }
 
 type WatchGridItem = ComponentProps<typeof WatchGrid>['items'][number]
@@ -47,12 +51,16 @@ async function getSafeTVShowBySlug(slug: string) {
   }
 }
 
-async function getSafeEpisodesForShow(showId: string | number): Promise<Episodes> {
+async function getSafeEpisodesForShow(
+  showId: string | number
+): Promise<Episodes> {
   try {
     return await getEpisodesForShow(showId)
   } catch (error) {
     console.error(
-      `[ShowEpisodesPage] Failed to load episodes for show "${String(showId)}":`,
+      `[ShowEpisodesPage] Failed to load episodes for show "${String(
+        showId
+      )}":`,
       error
     )
     return [] as Episodes
@@ -87,6 +95,10 @@ export async function generateMetadata({
     alternates: {
       canonical: pagePath,
     },
+    applicationName: 'WaveNation',
+    authors: [{ name: 'WaveNation Media' }],
+    creator: 'WaveNation Media',
+    publisher: 'WaveNation Media',
     openGraph: {
       title: pageTitle,
       description: pageDescription,

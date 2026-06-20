@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Script from 'next/script'
 import { MusicCard, MusicFilterTabs } from '@wavenation/ui-web'
 import {
   PLAYLIST_TYPE_OPTIONS,
@@ -17,8 +18,10 @@ export const revalidate = 300
 type SearchParams = Record<string, string | string[] | undefined>
 
 type PageProps = {
-  searchParams?: Promise<SearchParams> | SearchParams
+  searchParams?: Promise<SearchParams>
 }
+
+type AnalyticsPayload = Record<string, string | number | boolean | null | undefined>
 
 const route = '/playlists'
 const siteName = 'WaveNation'
@@ -69,10 +72,7 @@ function formatMoodLabel(slug?: string) {
     .join(' ')
 }
 
-function buildRouteWithSearch(
-  pathname: string,
-  params: Record<string, string | undefined>,
-) {
+function buildRouteWithSearch(pathname: string, params: Record<string, string | undefined>) {
   const search = new URLSearchParams()
 
   Object.entries(params).forEach(([key, value]) => {
@@ -106,10 +106,47 @@ function getPlaylistTypeLabel(type: string) {
   return PLAYLIST_TYPE_OPTIONS.find((option) => option.value === type)?.label
 }
 
-export async function generateMetadata({
-  searchParams,
-}: PageProps): Promise<Metadata> {
-  const params = searchParams ? await searchParams : {}
+function AnalyticsEventScript({
+  id,
+  eventName,
+  payload,
+}: {
+  id: string
+  eventName: string
+  payload: AnalyticsPayload
+}) {
+  const safeEventName = JSON.stringify(eventName)
+  const safePayload = JSON.stringify(payload).replace(/</g, '\\u003c')
+
+  return (
+    <Script
+      id={id}
+      strategy="afterInteractive"
+      dangerouslySetInnerHTML={{
+        __html: `
+          (function () {
+            var eventName = ${safeEventName};
+            var payload = ${safePayload};
+
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push(Object.assign({ event: eventName }, payload));
+
+            if (typeof window.gtag === 'function') {
+              window.gtag('event', eventName, payload);
+            }
+
+            if (window.posthog && typeof window.posthog.capture === 'function') {
+              window.posthog.capture(eventName, payload);
+            }
+          })();
+        `,
+      }}
+    />
+  )
+}
+
+export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
+  const params = (await searchParams) ?? {}
 
   const type = normalizePlaylistType(readParam(params, 'type'))
   const mood = readParam(params, 'mood') || undefined
@@ -199,7 +236,7 @@ export async function generateMetadata({
 }
 
 export default async function PlaylistsPage({ searchParams }: PageProps) {
-  const params = searchParams ? await searchParams : {}
+  const params = (await searchParams) ?? {}
 
   const type = normalizePlaylistType(readParam(params, 'type'))
   const mood = readParam(params, 'mood') || undefined
@@ -212,9 +249,7 @@ export default async function PlaylistsPage({ searchParams }: PageProps) {
     getActiveMoods(50),
   ])
 
-  const playlists = Array.isArray(playlistResult.docs)
-    ? playlistResult.docs
-    : []
+  const playlists = Array.isArray(playlistResult.docs) ? playlistResult.docs : []
 
   const filteredPlaylists = filterPlaylists(playlists, {
     playlistType: type === 'all' ? undefined : type,
@@ -231,6 +266,9 @@ export default async function PlaylistsPage({ searchParams }: PageProps) {
   })
 
   const pageUrl = `${siteBaseUrl}${canonicalPath}`
+
+  const typeLabel = type !== 'all' ? getPlaylistTypeLabel(type) : undefined
+  const moodLabel = formatMoodLabel(mood)
 
   const typeTabs = [
     { label: 'All', href: '/playlists', isActive: type === 'all' && !mood },
@@ -306,7 +344,7 @@ export default async function PlaylistsPage({ searchParams }: PageProps) {
         itemListElement: paginated.docs.map((playlist, index) => {
           const playlistUrl = `${siteBaseUrl}/playlists/${playlist.slug}`
           const imageUrl = absoluteUrl(
-            getMediaUrl(playlist.coverArt) || getMediaUrl(playlist.heroImage),
+            getMediaUrl(playlist.coverArt) || getMediaUrl(playlist.heroImage)
           )
 
           return {
@@ -358,157 +396,175 @@ export default async function PlaylistsPage({ searchParams }: PageProps) {
   }
 
   return (
-    <main
-      className={styles.page}
-      data-analytics-page="playlists"
-      data-analytics-page-title="Playlists"
-      data-analytics-page-type="music-directory"
-      data-analytics-content-group="Music"
-      data-analytics-funnel="music-discovery"
-      data-analytics-filter-type={type}
-      data-analytics-filter-mood={mood || 'all'}
-      data-analytics-page-number={String(paginated.page)}
-      data-analytics-results-count={String(paginated.totalDocs)}
-    >
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: serializeJsonLd(playlistsJsonLd),
+    <>
+      <AnalyticsEventScript
+        id="wavenation-playlists-page-analytics"
+        eventName="playlists_index_view"
+        payload={{
+          page_type: 'playlists_index',
+          page_path: canonicalPath,
+          playlist_filter_type: type,
+          playlist_filter_type_label: typeLabel || 'All',
+          playlist_filter_mood: mood || 'all',
+          playlist_filter_mood_label: moodLabel || 'All Moods',
+          page_number: paginated.page,
+          result_count: paginated.docs.length,
+          total_docs: paginated.totalDocs,
+          featured_playlist_slug: featured?.slug || null,
         }}
       />
 
-      <section className={styles.hero} data-analytics-region="playlists-hero">
-        <p>WaveNation Playlists</p>
-        <h1>Curated sound for every mood.</h1>
-        <span>
-          Editorial playlists, mood-based collections, sponsored placements, show
-          companions, and culture-first music discovery from the WaveNation
-          music team.
-        </span>
-        <div className={styles.heroActions}>
-          <Link href="/discover" data-analytics-cta="discover">
-            Discover
-          </Link>
-          <Link href="/charts" data-analytics-cta="view-charts">
-            View Charts
-          </Link>
-        </div>
-      </section>
+      <main
+        className={styles.page}
+        data-analytics-page="playlists"
+        data-analytics-page-title="Playlists"
+        data-analytics-page-type="music-directory"
+        data-analytics-content-group="Music"
+        data-analytics-funnel="music-discovery"
+        data-analytics-filter-type={type}
+        data-analytics-filter-mood={mood || 'all'}
+        data-analytics-page-number={String(paginated.page)}
+        data-analytics-results-count={String(paginated.totalDocs)}
+      >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: serializeJsonLd(playlistsJsonLd),
+          }}
+        />
 
-      {featured ? (
-        <section
-          className={styles.featured}
-          data-analytics-region="featured-playlist"
-          data-analytics-playlist-slug={featured.slug}
-        >
-          <MusicCard
-            href={`/playlists/${featured.slug}`}
-            title={featured.title}
-            eyebrow="Featured Playlist"
-            description={featured.shortDescription || featured.description}
-            image={featured.heroImage || featured.coverArt}
-            meta={
-              featured.curatorName
-                ? `Curated by ${featured.curatorName}`
-                : featured.updateCadenceLabel
-            }
-            badge={featured.isSponsored ? 'Sponsored' : 'Featured'}
-            accent={featured.accentColor}
-            variant="feature"
-          />
-        </section>
-      ) : null}
-
-      <section className={styles.filters} data-analytics-region="playlist-filters">
-        <div>
-          <p>Playlist Type</p>
-          <MusicFilterTabs label="Playlist type filters" tabs={typeTabs} />
-        </div>
-        <div>
-          <p>Moods</p>
-          <MusicFilterTabs label="Mood filters" tabs={moodTabs} />
-        </div>
-      </section>
-
-      <section className={styles.results} data-analytics-region="playlist-results">
-        <div className={styles.resultsHeader}>
-          <p>{paginated.totalDocs} playlists</p>
-          <h2>Browse playlists</h2>
-        </div>
-
-        {paginated.docs.length > 0 ? (
-          <div className={styles.grid}>
-            {paginated.docs.map((playlist) => (
-              <MusicCard
-                key={playlist.slug}
-                href={`/playlists/${playlist.slug}`}
-                title={playlist.title}
-                eyebrow={playlist.playlistTypeLabel}
-                description={playlist.shortDescription || playlist.description}
-                image={playlist.coverArt || playlist.heroImage}
-                meta={
-                  playlist.curatorName
-                    ? `Curated by ${playlist.curatorName}`
-                    : playlist.updateCadenceLabel
-                }
-                badge={
-                  playlist.isSponsored
-                    ? 'Sponsored'
-                    : playlist.isFeatured
-                      ? 'Featured'
-                      : undefined
-                }
-                accent={playlist.accentColor}
-                tags={[
-                  ...(playlist.moods?.map((item) => item.name) ?? []),
-                  ...(playlist.genres?.map((item) => item.name) ?? []),
-                ]}
-                platformLinks={playlist.platformLinks}
-              />
-            ))}
-          </div>
-        ) : (
-          <p className={styles.empty}>No playlists match this filter yet.</p>
-        )}
-
-        <div className={styles.pagination}>
-          {paginated.hasPrevPage ? (
-            <Link
-              href={buildPaginationHref(
-                '/playlists',
-                {
-                  type: type !== 'all' ? type : undefined,
-                  mood,
-                },
-                paginated.page - 1,
-              )}
-              data-analytics-cta="previous-page"
-            >
-              Previous
-            </Link>
-          ) : null}
-
+        <section className={styles.hero} data-analytics-region="playlists-hero">
+          <p>WaveNation Playlists</p>
+          <h1>Curated sound for every mood.</h1>
           <span>
-            Page {paginated.page} of {paginated.totalPages}
+            Editorial playlists, mood-based collections, sponsored placements, show companions,
+            and culture-first music discovery from the WaveNation music team.
           </span>
-
-          {paginated.hasNextPage ? (
-            <Link
-              href={buildPaginationHref(
-                '/playlists',
-                {
-                  type: type !== 'all' ? type : undefined,
-                  mood,
-                },
-                paginated.page + 1,
-              )}
-              data-analytics-cta="next-page"
-            >
-              Next
+          <div className={styles.heroActions}>
+            <Link href="/discover" data-analytics-cta="discover">
+              Discover
             </Link>
-          ) : null}
-        </div>
-      </section>
-    </main>
+            <Link href="/charts" data-analytics-cta="view-charts">
+              View Charts
+            </Link>
+          </div>
+        </section>
+
+        {featured ? (
+          <section
+            className={styles.featured}
+            data-analytics-region="featured-playlist"
+            data-analytics-playlist-slug={featured.slug}
+          >
+            <MusicCard
+              href={`/playlists/${featured.slug}`}
+              title={featured.title}
+              eyebrow="Featured Playlist"
+              description={featured.shortDescription || featured.description}
+              image={featured.heroImage || featured.coverArt}
+              meta={
+                featured.curatorName
+                  ? `Curated by ${featured.curatorName}`
+                  : featured.updateCadenceLabel
+              }
+              badge={featured.isSponsored ? 'Sponsored' : 'Featured'}
+              accent={featured.accentColor}
+              variant="feature"
+            />
+          </section>
+        ) : null}
+
+        <section className={styles.filters} data-analytics-region="playlist-filters">
+          <div>
+            <p>Playlist Type</p>
+            <MusicFilterTabs label="Playlist type filters" tabs={typeTabs} />
+          </div>
+          <div>
+            <p>Moods</p>
+            <MusicFilterTabs label="Mood filters" tabs={moodTabs} />
+          </div>
+        </section>
+
+        <section className={styles.results} data-analytics-region="playlist-results">
+          <div className={styles.resultsHeader}>
+            <p>{paginated.totalDocs} playlists</p>
+            <h2>Browse playlists</h2>
+          </div>
+
+          {paginated.docs.length > 0 ? (
+            <div className={styles.grid}>
+              {paginated.docs.map((playlist) => (
+                <MusicCard
+                  key={playlist.slug}
+                  href={`/playlists/${playlist.slug}`}
+                  title={playlist.title}
+                  eyebrow={playlist.playlistTypeLabel}
+                  description={playlist.shortDescription || playlist.description}
+                  image={playlist.coverArt || playlist.heroImage}
+                  meta={
+                    playlist.curatorName
+                      ? `Curated by ${playlist.curatorName}`
+                      : playlist.updateCadenceLabel
+                  }
+                  badge={
+                    playlist.isSponsored
+                      ? 'Sponsored'
+                      : playlist.isFeatured
+                        ? 'Featured'
+                        : undefined
+                  }
+                  accent={playlist.accentColor}
+                  tags={[
+                    ...(playlist.moods?.map((item) => item.name) ?? []),
+                    ...(playlist.genres?.map((item) => item.name) ?? []),
+                  ]}
+                  platformLinks={playlist.platformLinks}
+                />
+              ))}
+            </div>
+          ) : (
+            <p className={styles.empty}>No playlists match this filter yet.</p>
+          )}
+
+          <div className={styles.pagination}>
+            {paginated.hasPrevPage ? (
+              <Link
+                href={buildPaginationHref(
+                  '/playlists',
+                  {
+                    type: type !== 'all' ? type : undefined,
+                    mood,
+                  },
+                  paginated.page - 1
+                )}
+                data-analytics-cta="previous-page"
+              >
+                Previous
+              </Link>
+            ) : null}
+
+            <span>
+              Page {paginated.page} of {paginated.totalPages}
+            </span>
+
+            {paginated.hasNextPage ? (
+              <Link
+                href={buildPaginationHref(
+                  '/playlists',
+                  {
+                    type: type !== 'all' ? type : undefined,
+                    mood,
+                  },
+                  paginated.page + 1
+                )}
+                data-analytics-cta="next-page"
+              >
+                Next
+              </Link>
+            ) : null}
+          </div>
+        </section>
+      </main>
+    </>
   )
 }

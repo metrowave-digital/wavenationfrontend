@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import Script from 'next/script'
 import { PlaylistProfile } from '@wavenation/ui-web'
 import { getPlaylistBySlug } from '@/lib/wavenation-music'
 import styles from './page.module.css'
@@ -7,8 +8,12 @@ import styles from './page.module.css'
 export const revalidate = 300
 
 type PageProps = {
-  params: Promise<{ slug: string }> | { slug: string }
+  params: Promise<{
+    slug: string
+  }>
 }
+
+type AnalyticsPayload = Record<string, string | number | boolean | null | undefined>
 
 type PlaylistSeoShape = {
   title: string
@@ -145,15 +150,53 @@ function getFirstPlatformUrl(platformLinks: unknown) {
   return undefined
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
+function AnalyticsEventScript({
+  id,
+  eventName,
+  payload,
+}: {
+  id: string
+  eventName: string
+  payload: AnalyticsPayload
+}) {
+  const safeEventName = JSON.stringify(eventName)
+  const safePayload = JSON.stringify(payload).replace(/</g, '\\u003c')
+
+  return (
+    <Script
+      id={id}
+      strategy="afterInteractive"
+      dangerouslySetInnerHTML={{
+        __html: `
+          (function () {
+            var eventName = ${safeEventName};
+            var payload = ${safePayload};
+
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push(Object.assign({ event: eventName }, payload));
+
+            if (typeof window.gtag === 'function') {
+              window.gtag('event', eventName, payload);
+            }
+
+            if (window.posthog && typeof window.posthog.capture === 'function') {
+              window.posthog.capture(eventName, payload);
+            }
+          })();
+        `,
+      }}
+    />
+  )
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
   const playlist = await getPlaylistBySlug(slug).catch(() => null)
 
   if (!playlist) {
     return {
-      title: 'Playlist Not Found',
+      metadataBase: new URL(siteBaseUrl),
+      title: 'Playlist Not Found | WaveNation',
       robots: {
         index: false,
         follow: false,
@@ -162,7 +205,7 @@ export async function generateMetadata({
   }
 
   const seoPlaylist = playlist as PlaylistSeoShape
-  const pagePath = `${routeBase}/${slug}`
+  const pagePath = `${routeBase}/${seoPlaylist.slug || slug}`
   const pageUrl = `${siteBaseUrl}${pagePath}`
 
   const title = seoPlaylist.seoTitle || seoPlaylist.title
@@ -171,15 +214,10 @@ export async function generateMetadata({
     : `${seoPlaylist.title} | WaveNation Playlists`
 
   const description = getDescription(seoPlaylist)
-  const preferredImage = getPreferredMedia(
-    seoPlaylist.coverArt,
-    seoPlaylist.heroImage,
-  )
-  const image = buildSocialImage(
-    preferredImage,
-    `${seoPlaylist.title} playlist on WaveNation`,
-  )
+  const preferredImage = getPreferredMedia(seoPlaylist.coverArt, seoPlaylist.heroImage)
+  const image = buildSocialImage(preferredImage, `${seoPlaylist.title} playlist on WaveNation`)
 
+  const imageUrl = absoluteUrl(image.url) || `${siteBaseUrl}${socialImage.url}`
   const genres = getNameList(seoPlaylist.genres)
   const moods = getNameList(seoPlaylist.moods)
 
@@ -215,7 +253,14 @@ export async function generateMetadata({
       siteName,
       type: 'website',
       locale: 'en_US',
-      images: [image],
+      images: [
+        {
+          url: imageUrl,
+          width: image.width,
+          height: image.height,
+          alt: image.alt,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
@@ -223,7 +268,7 @@ export async function generateMetadata({
       description,
       images: [
         {
-          url: image.url,
+          url: imageUrl,
           alt: image.alt,
         },
       ],
@@ -259,13 +304,8 @@ export default async function PlaylistDetailPage({ params }: PageProps) {
   const pageUrl = `${siteBaseUrl}${pagePath}`
 
   const description = getDescription(seoPlaylist)
-  const preferredImage = getPreferredMedia(
-    seoPlaylist.coverArt,
-    seoPlaylist.heroImage,
-  )
-  const imageUrl = absoluteUrl(
-    getMediaUrl(preferredImage) || socialImage.url,
-  )
+  const preferredImage = getPreferredMedia(seoPlaylist.coverArt, seoPlaylist.heroImage)
+  const imageUrl = absoluteUrl(getMediaUrl(preferredImage) || socialImage.url)
 
   const genres = getNameList(seoPlaylist.genres)
   const moods = getNameList(seoPlaylist.moods)
@@ -374,29 +414,47 @@ export default async function PlaylistDetailPage({ params }: PageProps) {
   }
 
   return (
-    <main
-      className={styles.page}
-      data-analytics-page="playlist-detail"
-      data-analytics-page-title={seoPlaylist.title}
-      data-analytics-page-type="music-detail"
-      data-analytics-content-group="Music"
-      data-analytics-funnel="music-discovery"
-      data-analytics-playlist-slug={playlistSlug}
-      data-analytics-playlist-sponsored={
-        seoPlaylist.isSponsored ? 'true' : 'false'
-      }
-      data-analytics-track-count={
-        typeof trackCount === 'number' ? String(trackCount) : undefined
-      }
-    >
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: serializeJsonLd(playlistJsonLd),
+    <>
+      <AnalyticsEventScript
+        id="wavenation-playlist-detail-page-analytics"
+        eventName="playlist_detail_view"
+        payload={{
+          page_type: 'playlist_detail',
+          page_path: pagePath,
+          playlist_slug: playlistSlug,
+          playlist_title: seoPlaylist.title,
+          curator_name: seoPlaylist.curatorName || null,
+          is_sponsored: seoPlaylist.isSponsored || false,
+          sponsor_name: seoPlaylist.sponsorName || null,
+          track_count: typeof trackCount === 'number' ? trackCount : null,
+          genre_count: genres.length,
+          mood_count: moods.length,
+          has_platform_link: Boolean(firstPlatformUrl),
         }}
       />
 
-      <PlaylistProfile playlist={playlist} />
-    </main>
+      <main
+        className={styles.page}
+        data-analytics-page="playlist-detail"
+        data-analytics-page-title={seoPlaylist.title}
+        data-analytics-page-type="music-detail"
+        data-analytics-content-group="Music"
+        data-analytics-funnel="music-discovery"
+        data-analytics-playlist-slug={playlistSlug}
+        data-analytics-playlist-sponsored={seoPlaylist.isSponsored ? 'true' : 'false'}
+        data-analytics-track-count={
+          typeof trackCount === 'number' ? String(trackCount) : undefined
+        }
+      >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: serializeJsonLd(playlistJsonLd),
+          }}
+        />
+
+        <PlaylistProfile playlist={playlist} />
+      </main>
+    </>
   )
 }

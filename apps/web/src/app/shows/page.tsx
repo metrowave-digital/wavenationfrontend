@@ -30,7 +30,11 @@ function getMetadataBase() {
 }
 
 function absoluteUrl(pathOrUrl: string) {
-  return new URL(pathOrUrl, getSiteUrl()).toString()
+  try {
+    return new URL(pathOrUrl, getSiteUrl()).toString()
+  } catch {
+    return new URL(pathOrUrl, 'https://wavenation.online').toString()
+  }
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {

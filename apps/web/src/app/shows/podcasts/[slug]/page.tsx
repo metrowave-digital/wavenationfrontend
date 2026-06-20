@@ -17,7 +17,7 @@ type PodcastPageParams = {
 }
 
 type PodcastPageProps = {
-  params: Promise<PodcastPageParams> | PodcastPageParams
+  params: Promise<PodcastPageParams>
 }
 
 function getSiteUrl() {
@@ -61,7 +61,7 @@ function toJsonLd(value: unknown) {
 export async function generateMetadata({
   params,
 }: PodcastPageProps): Promise<Metadata> {
-  const { slug } = await Promise.resolve(params)
+  const { slug } = await params
   const podcast = await getPodcastBySlug(slug).catch(() => null)
 
   if (!podcast) {
@@ -140,7 +140,7 @@ export async function generateMetadata({
 export default async function PodcastDetailPage({
   params,
 }: PodcastPageProps) {
-  const { slug } = await Promise.resolve(params)
+  const { slug } = await params
 
   const podcast = await getPodcastBySlug(slug).catch(() => null)
 
@@ -242,10 +242,7 @@ export default async function PodcastDetailPage({
         dangerouslySetInnerHTML={{ __html: toJsonLd(podcastJsonLd) }}
       />
 
-      <ShowProfile
-        show={{ ...podcast, episodes }}
-        relatedShows={relatedShows}
-      />
+      <ShowProfile show={{ ...podcast, episodes }} relatedShows={relatedShows} />
     </main>
   )
 }

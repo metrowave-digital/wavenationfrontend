@@ -21,7 +21,7 @@ type PodcastsPageSearchParams = {
 }
 
 type PageProps = {
-  searchParams?: Promise<PodcastsPageSearchParams> | PodcastsPageSearchParams
+  searchParams?: Promise<PodcastsPageSearchParams>
 }
 
 function getSiteUrl() {
@@ -124,7 +124,7 @@ function toJsonLd(value: unknown) {
 export async function generateMetadata({
   searchParams,
 }: PageProps): Promise<Metadata> {
-  const resolvedSearchParams = await Promise.resolve(searchParams ?? {})
+  const resolvedSearchParams = searchParams ? await searchParams : {}
   const activeFilter = safeFilter(readFirst(resolvedSearchParams.filter))
   const filterTitle = activeFilter ? formatFilterTitle(activeFilter) : undefined
 
@@ -181,7 +181,7 @@ export async function generateMetadata({
 }
 
 export default async function PodcastsPage({ searchParams }: PageProps) {
-  const resolvedSearchParams = await Promise.resolve(searchParams ?? {})
+  const resolvedSearchParams = searchParams ? await searchParams : {}
 
   const rawFilter = resolvedSearchParams.filter
   const activeFilter = safeFilter(readFirst(rawFilter))

@@ -13,7 +13,7 @@ type TvShowPageParams = {
 }
 
 type PageProps = {
-  params: Promise<TvShowPageParams> | TvShowPageParams
+  params: Promise<TvShowPageParams>
 }
 
 function getSiteUrl() {
@@ -57,7 +57,7 @@ function toJsonLd(value: unknown) {
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { slug } = await Promise.resolve(params)
+  const { slug } = await params
   const show = await getTvShowBySlug(slug).catch(() => null)
 
   if (!show) {
@@ -134,7 +134,7 @@ export async function generateMetadata({
 }
 
 export default async function TvShowDetailPage({ params }: PageProps) {
-  const { slug } = await Promise.resolve(params)
+  const { slug } = await params
 
   const show = await getTvShowBySlug(slug).catch(() => null)
 

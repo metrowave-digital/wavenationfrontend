@@ -13,7 +13,7 @@ type RadioShowPageParams = {
 }
 
 type PageProps = {
-  params: Promise<RadioShowPageParams> | RadioShowPageParams
+  params: Promise<RadioShowPageParams>
 }
 
 function getSiteUrl() {
@@ -57,7 +57,7 @@ function toJsonLd(value: unknown) {
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { slug } = await Promise.resolve(params)
+  const { slug } = await params
   const show = await getRadioShowBySlug(slug).catch(() => null)
 
   if (!show) {
@@ -134,7 +134,7 @@ export async function generateMetadata({
 }
 
 export default async function RadioShowDetailPage({ params }: PageProps) {
-  const { slug } = await Promise.resolve(params)
+  const { slug } = await params
 
   const show = await getRadioShowBySlug(slug).catch(() => null)
 
